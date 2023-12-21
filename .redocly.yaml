@@ -1,0 +1,3 @@
+apis:
+  OpenMetadataIO@v0:
+    root: omio.yml
