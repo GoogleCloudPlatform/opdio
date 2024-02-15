@@ -1,0 +1,3 @@
+[submodule "OMC"]
+	path = OMC
+	url = https://github.com/MovieLabs/OMC.git
