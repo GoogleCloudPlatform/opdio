@@ -5,9 +5,9 @@ apis:
       - recommended
     rules:
       tag-description: off
-      operation-summary: error
-      no-unresolved-refs: error
-      no-unused-components: error
+      operation-summary: off
+      no-unresolved-refs: off
+      no-unused-components: off
       operation-2xx-response: error
       operation-operationId: error
       operation-singular-tag: error

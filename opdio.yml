@@ -1,16 +1,16 @@
 openapi: '3.1.0'
 jsonSchemaDialect: 'https://json-schema.org/draft/2019-09/schema'
 info:
-  title: OpenMetadataIO
-  description: "OpenMetadataIO is a REST-based API enabling permissioned access to\
-    \ versioned metadata in a heterogeneous media supply chain. \nThe purpose of OMIO\
+  title: OpenProductionDataIO
+  description: "OpenProductionDataIO is a REST-based API enabling permissioned access to\
+    \ versioned metadata in a heterogeneous media supply chain. \nThe purpose of OPDIO\
     \ is to create a common source of truth for metadata across production, pre-production\
     \ and post-production workflows; \ntoday those workflows consist of disconnected\
     \ ISV solutions reading and writing metadata to their own proprietary datastores,\
     \ often\nrequiring elaborate export/import and validation procedures to ensure\
-    \ integrity of metadata from one step to the next.\n\nOpenMetadataIO seeks to\
+    \ integrity of metadata from one step to the next.\n\nOpenProductionDataIO seeks to\
     \ solve this problem by offering a unified API for accessing metadata across all\
-    \ of these applications.\n\nBelow is the draft specification for the OpenMetadataIO\
+    \ of these applications.\n\nBelow is the draft specification for the OpenProductionDataIO\
     \ API."
   version: 1.0.0
 servers: 
@@ -22,7 +22,7 @@ tags:
 - name: Participant Management
   description: CRUDL operations for Participants, as defined by the OMC schema. Can be extended with custom properties.
 - name: Role Management
-  description: CRUDL operations for Roles, which can be assigned to Participants and used to grant or deny access to metadata within OMIO.
+  description: CRUDL operations for Roles, which can be assigned to Participants and used to grant or deny access to metadata within OPDIO.
 - name: Schema Extensions
   description: Extend the core [OMC schema](https://movielabs.com/omc/json/schema/v2.0) by specifying additional required fields for Assets, Participants and Roles.
 
@@ -31,12 +31,12 @@ paths:
   /asset/create:
     post:
       description: |
-        Create new Assets in OMIO and receive an OMC identifier.
+        Create new Assets in OPDIO and receive an OMC identifier.
       operationId: createAsset
       tags:
       - Asset Management
       requestBody: 
-        description: This action creates a new Asset within OpenMetadataIO, which can later be retrieved using its Identifier.
+        description: This action creates a new Asset within OpenProductionDataIO, which can later be retrieved using its Identifier.
         required: true
         content:
           application/json:
@@ -93,7 +93,7 @@ paths:
         404:
           $ref: "#/components/responses/NotFound" 
     delete:
-      description: Deletes an Asset reference from OpenMetadataIO.
+      description: Deletes an Asset reference from OpenProductionDataIO.
       operationId: deleteAssetById
       tags: 
       -  Asset Management
@@ -173,12 +173,12 @@ paths:
   /participant/create:
     post:
       description: |
-        Create new participants in OMIO and receive an OMC identifier.
+        Create new participants in OPDIO and receive an OMC identifier.
       operationId: createParticipant
       tags:
       - Participant Management
       requestBody: 
-        description: This action creates a new Participant within OpenMetadataIO, which can later be retrieved using its Identifier.
+        description: This action creates a new Participant within OpenProductionDataIO, which can later be retrieved using its Identifier.
         required: true
         content:
           application/json:
@@ -232,7 +232,7 @@ paths:
         404:
           $ref: "#/components/responses/NotFound" 
     delete:
-      description: Deletes an Participant reference from OpenMetadataIO.
+      description: Deletes an Participant reference from OpenProductionDataIO.
       operationId: deleteParticipantById
       tags: 
       -  Participant Management
