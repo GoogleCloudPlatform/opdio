@@ -1,5 +1,5 @@
 name: update-api-docs
-run-name: ${{ github.actor }} updated API docs
+run-name: ${{ github.actor }} run-name: ${{ github.actor }} wrote ${{github.event.head_commit.message}}
 on: [push]
 jobs:
   publish-api-spec:
@@ -21,7 +21,7 @@ jobs:
         DIR_GHP: "gh-pages"
         OPENAPI_FILE: "opdio.yml"
         CNAME: "opdio.scales.cloud"
-        
+
     - name: openapi-lint 
       uses: mhiew/redoc-lint-github-action@v3
       with:
