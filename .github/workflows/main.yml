@@ -15,20 +15,21 @@ jobs:
       env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}   
 
-
-    - name: openapi-lint 
-      uses: mhiew/redoc-lint-github-action@v3
-      with:
-        args: 'test/petstore.yml'
-
-    - name: redoc-cli test
-      uses: seeebiii/redoc-cli-github-action@v10
-      with:
-        args: 'opdio.yml'
-
     - name: Run publish.sh to generate index.html
       run: bash publish.sh 
       env:
         DIR_GHP: "gh-pages"
         OPENAPI_FILE: "opdio.yml"
         CNAME: "opdio.scales.cloud"
+        
+    - name: openapi-lint 
+      uses: mhiew/redoc-lint-github-action@v3
+      with:
+        args: 'opdio.yml'
+
+    - name: redoc-cli test
+      uses: seeebiii/redoc-cli-github-action@v10
+      with:
+        args: 'opdio.yml'
+
+
