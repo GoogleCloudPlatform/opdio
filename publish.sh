@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 ### Ref: http://redsymbol.net/articles/unofficial-bash-strict-mode/
-set -exo pipefail
+#set -exo pipefail
 
 ### Import Environment Variables & arguments
 ENV_GITHUB_RUN_ID="${GITHUB_RUN_ID}"
 ARG_DIR_SOURCE="${DIR_GHP}"
-ARG_SCRIPT_BUILD=bin/compile_docs.sh
+ARG_CNAME="opdio.scales.cloud"
 set -u
 
 DIR_WORKSPACE="$(pwd)"
@@ -44,7 +44,7 @@ cp -r "${ARG_DIR_SOURCE:?}"/* "${DIR_TMP_GHP}/"
 
 ### Publish gh-pages
 cd "${DIR_TMP_GHP}"
-echo omio.scales.cloud >> CNAME
+echo "{$ARG_CNAME}" >> CNAME
 git add --all
 
 ### Allow the commit to fail, as not all commits alter the GitHub Pages
