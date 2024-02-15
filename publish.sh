@@ -2,11 +2,14 @@
 ### Ref: http://redsymbol.net/articles/unofficial-bash-strict-mode/
 #set -exo pipefail
 ### Import Environment Variables & arguments
+
 ENV_GITHUB_RUN_ID="${GITHUB_RUN_ID}"
 ARG_DIR_SOURCE="${DIR_GHP}"
 ARG_OPENAPI_FILE="${OPENAPI_FILE}"
 ARG_CNAME="${CNAME}"
+
 #set -u
+
 DIR_WORKSPACE="$(pwd)"
 DIR_TMP_GHP="/tmp/${DIR_GHP}"
 CURRENT_BRANCH=$(git branch --show-current)
