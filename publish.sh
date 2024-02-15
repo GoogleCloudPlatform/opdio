@@ -1,25 +1,20 @@
 #!/usr/bin/env bash
 ### Ref: http://redsymbol.net/articles/unofficial-bash-strict-mode/
 #set -exo pipefail
-
 ### Import Environment Variables & arguments
 ENV_GITHUB_RUN_ID="${GITHUB_RUN_ID}"
 ARG_DIR_SOURCE="${DIR_GHP}"
 ARG_OPENAPI_FILE="${OPENAPI_FILE}"
 ARG_CNAME="${CNAME}"
 #set -u
-
 DIR_WORKSPACE="$(pwd)"
 DIR_TMP_GHP="/tmp/${DIR_GHP}"
 CURRENT_BRANCH=$(git branch --show-current)
-
 #npx @redocly/cli build-docs "${ARG_OPENAPI_FILE}" -o "${DIR_GHP}/index.html"
-
 if [[ -n "${ENV_GITHUB_RUN_ID}" ]]; then
   git config user.name "${GITHUB_ACTOR}"
   git config user.email "${GITHUB_ACTOR}@github.com"
 fi
-
 ### Ensure the 'gh-pages' orphan branch exists
 ! git checkout --orphan gh-pages >> /dev/null
 if [[ ${PIPESTATUS[0]} -eq 0 ]]; then
@@ -56,4 +51,3 @@ if [[ ${PIPESTATUS[0]} -eq 0 ]]; then
 else
   echo "☑ No changes detected"
 fi
-
