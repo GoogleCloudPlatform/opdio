@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 ### Ref: http://redsymbol.net/articles/unofficial-bash-strict-mode/
-#set -exo pipefail
+set -exo pipefail
 ### Import Environment Variables & arguments
 
 ENV_GITHUB_RUN_ID="${GITHUB_RUN_ID}"
