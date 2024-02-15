@@ -353,11 +353,11 @@ components:
       description: The particular item you are requesting was not found. This occurs, for example, if you request an Asset by an ID that does not exist. 
   schemas: 
     Asset:
-      $ref: 'OMC/OMC-JSON/OMC-JSON-v2.0.schema.json#/$defs/Asset/properties/Asset'
+      $ref: 'schemas/omc-asset.json#/$defs/Asset/properties/Asset'
     Participant:
-      $ref: 'OMC/OMC-JSON/OMC-JSON-v2.0.schema.json#/$defs/Participant'
+      $ref: 'schemas/omc-participant.json#/$defs/Participant'
     identifier: 
-      $ref: 'OMC/OMC-JSON/OMC-JSON-v2.0.schema.json#/$defs/Utility/properties/identifier'
+      $ref: 'schemas/omc-utility.json#/$defs/Utility/properties/identifier'
     Meta:
       description: |
         The Meta Object contains basic information regarding the request, whether it was successful, and the response given by the API.  Check `responses` to see a description of types of response codes the API might give you under different cirumstances.
