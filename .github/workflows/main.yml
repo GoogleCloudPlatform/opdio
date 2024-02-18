@@ -19,11 +19,11 @@ jobs:
       run: bash .github/workflows/publish.sh 
       env:
         DIR_GHP: "gh-pages"
-        OPENAPI_FILE: "opdio.yml"
+        OPENAPI_FILE: "api/opdio.yml"
         CNAME: "opdio.scales.cloud"
 
     - name: openapi-lint 
       uses: mhiew/redoc-lint-github-action@v3
       with:
-        args: 'opdio.yml'
+        args: 'api/opdio.yml'
 

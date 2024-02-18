@@ -10,10 +10,10 @@ ARG_CNAME="${CNAME}"
 
 set -u
 DIR_WORKSPACE="$(pwd)"
-DIR_TMP_GHP="/tmp/${DIR_GHP}"
+DIR_TMP_GHP="/tmp/${ARG_DIR_SOURCE}"
 CURRENT_BRANCH=$(git branch --show-current)
 
-npx @redocly/cli build-docs "${ARG_OPENAPI_FILE}" -o "${DIR_GHP}/index.html"
+npx @redocly/cli build-docs "${ARG_OPENAPI_FILE}" -o "${ARG_DIR_SOURCE}/index.html"
 
 if [[ -n "${ENV_GITHUB_RUN_ID}" ]]; then
   git config user.name "${GITHUB_ACTOR}"
