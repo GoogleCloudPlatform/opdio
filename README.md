@@ -1,6 +1,6 @@
 # OpenProductionDataIO
 
-The goal of OpenProductionDataIO (OPDIO) is to define an open, industry standard for interacting with media metadata. 
+The goal of OpenProductionDataIO (OPDIO) is to define an open industry standard for interacting with media metadata. 
 
 ## Problem Statement
 We need a way to ensure metadata consistency and to provide a standard method for integrating software throughout the pre-production and production process, without relying on the export/import functions of individual applications. 

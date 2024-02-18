@@ -16,7 +16,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}   
 
     - name: Run publish.sh to generate index.html
-      run: bash publish.sh 
+      run: bash .github/workflows/publish.sh 
       env:
         DIR_GHP: "gh-pages"
         OPENAPI_FILE: "opdio.yml"
