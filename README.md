@@ -1,5 +1,4 @@
-# OpenProductionDataIO
-
+## OpenProductionDataIO
 The goal of OpenProductionDataIO (OPDIO) is to define an open industry standard for interacting with media metadata. 
 
 ## Problem Statement
@@ -10,3 +9,5 @@ Standardized data access throughout the media workflow
 * A REST-based API for performing CRUDL (create, read, update, delete and list) operations against metadata
 * OpenAPI-backed API spec allows for rapid mocking and automatic generation of client code
 * Builds on MovieLabs’s Ontology for Media Creation (OMC) to deliver a standardized data model throughout the supply chain
+
+Visit the API documentation at: https://googlecloudplatform.github.io/opdio/

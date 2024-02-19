@@ -3,7 +3,7 @@ jsonSchemaDialect: 'https://json-schema.org/draft/2019-09/schema'
 info:
   title: OpenProductionDataIO
   description: "OpenProductionDataIO is a REST-based API enabling permissioned access to\
-    \ versioned metadata in a heterogeneous media supply chain. \nThe purpose of OPDIO\
+    \ versioned metadata in a heterogeneous media supply chain. \n\n\nThe purpose of OPDIO\
     \ is to create a common source of truth for metadata across production, pre-production\
     \ and post-production workflows; \ntoday those workflows consist of disconnected\
     \ ISV solutions reading and writing metadata to their own proprietary datastores,\
@@ -30,8 +30,7 @@ tags:
 paths:
   /asset/create:
     post:
-      description: |
-        Create new Assets in OPDIO and receive an OMC identifier.
+      summary: Create new Assets in OPDIO and receive an OMC identifier.
       operationId: createAsset
       tags:
       - Asset Management
@@ -67,8 +66,7 @@ paths:
           $ref: "#/components/responses/NotFound" 
   "/asset/{omc-id}":
     get:
-      description: |
-        Returns an Asset object, given that Asset's unique ID 
+      summary: Returns an Asset object, given that Asset's unique ID 
       operationId: getAssetById
       tags:
         - Asset Management
@@ -93,7 +91,7 @@ paths:
         404:
           $ref: "#/components/responses/NotFound" 
     delete:
-      description: Deletes an Asset reference from OpenProductionDataIO.
+      summary: Deletes an Asset reference from OpenProductionDataIO.
       operationId: deleteAssetById
       tags: 
       -  Asset Management
@@ -109,7 +107,7 @@ paths:
         404:
           $ref: "#/components/responses/NotFound" 
     patch:
-      description: Updates the details of an already-created Asset with the provided OMC ID.
+      summary: Updates the details of an already-created Asset with the provided OMC ID.
       operationId: updateAssetById
       tags:
         - Asset Management
@@ -141,8 +139,7 @@ paths:
           $ref: "#/components/responses/NotFound" 
   "/asset/{omc-id}/related":
     get:
-      description: |
-        Returns the list of Assets associated with this Asset's unique ID 
+      summary: Returns the list of Assets associated with this Asset's unique ID 
       operationId: getRelatedAssetsById
       tags:
         - Asset Management
@@ -169,10 +166,9 @@ paths:
           $ref: "#/components/responses/Forbidden"
         404:
           $ref: "#/components/responses/NotFound" 
-
   /participant/create:
     post:
-      description: |
+      summary: |
         Create new participants in OPDIO and receive an OMC identifier.
       operationId: createParticipant
       tags:
@@ -206,7 +202,7 @@ paths:
           $ref: "#/components/responses/NotFound" 
   "/participant/{omc-id}":
     get:
-      description: |
+      summary: |
         Returns a Participant object, given that Participant's unique ID 
       operationId: getParticipantById
       tags:
@@ -232,7 +228,7 @@ paths:
         404:
           $ref: "#/components/responses/NotFound" 
     delete:
-      description: Deletes an Participant reference from OpenProductionDataIO.
+      summary: Deletes an Participant reference from OpenProductionDataIO.
       operationId: deleteParticipantById
       tags: 
       -  Participant Management
@@ -248,7 +244,7 @@ paths:
         404:
           $ref: "#/components/responses/NotFound" 
     patch:
-      description: Updates the details of an already-created participant with the provided OMC ID.
+      summary: Updates the details of an already-created participant with the provided OMC ID.
       operationId: updateParticipantById
       tags:
         - Participant Management
@@ -280,7 +276,7 @@ paths:
           $ref: "#/components/responses/NotFound" 
   "/participant/{omc-id}/related":
     get:
-      description: |
+      summary: |
         Returns the list of Participants associated with this participant's unique ID 
       operationId: getRelatedParticipantsById
       tags:
@@ -309,11 +305,11 @@ paths:
         404:
           $ref: "#/components/responses/NotFound" 
             
-
 components:
   examples:
     createAssetExample:
-      properties:
+      summary: This is an example of creating an Asset.
+      value:
         version:
             versionNumber: 1.2.3
             name: Updated Action Sequence
@@ -324,11 +320,15 @@ components:
         RevisionOf:
           identifier: [some-old-mam, abcd1234]
     assetCreatedResponse:
+      summary: Valid response for Asset creation.
+      value:
         created: true
         identifier: ["some-mam", "abcd1234"]
     participantCreatedResponse:
-          created: true
-          identifier: ["prod-pro", "abcd1234"]
+      summary: Valid response for Participant creation.
+      value:
+        created: true
+        identifier: ["prod-pro", "abcd1234"]
   parameters: 
     omc-id:
       description: A URL-encoded string representing the union of identifierScope and identifierValue.
