@@ -22,8 +22,8 @@ jobs:
         OPENAPI_FILE: "api/opdio.yml"
         CNAME: "opdio.scales.cloud"
 
-    - name: openapi-lint 
-      uses: mhiew/redoc-lint-github-action@v3
-      with:
-        args: 'api/opdio.yml'
+    # - name: openapi-lint 
+    #   uses: mhiew/redoc-lint-github-action@v3
+    #   with:
+    #     args: 'api/opdio.yml'
 

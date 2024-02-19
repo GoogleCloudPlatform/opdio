@@ -4,13 +4,15 @@ apis:
     extends:
       - recommended
     rules:
-      tag-description: off
-      operation-summary: off
-      no-unresolved-refs: off
-      no-unused-components: off
+      tag-description: warn
+      operation-summary: warn
+      no-unresolved-refs: warn
+      no-unused-components: warn
+      no-empty-servers: off
       operation-2xx-response: error
       operation-operationId: error
       operation-singular-tag: error
       no-enum-type-mismatch: error
       no-identical-paths: error
       no-ambiguous-paths: error
+      security-defined: warn

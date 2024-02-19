@@ -3,19 +3,18 @@ jsonSchemaDialect: 'https://json-schema.org/draft/2019-09/schema'
 info:
   title: OpenProductionDataIO
   description: "OpenProductionDataIO is a REST-based API enabling permissioned access to\
-    \ versioned metadata in a heterogeneous media supply chain. \n\n\nThe purpose of OPDIO\
-    \ is to create a common source of truth for metadata across production, pre-production\
-    \ and post-production workflows; \ntoday those workflows consist of disconnected\
-    \ ISV solutions reading and writing metadata to their own proprietary datastores,\
-    \ often\nrequiring elaborate export/import and validation procedures to ensure\
-    \ integrity of metadata from one step to the next.\n\nOpenProductionDataIO seeks to\
-    \ solve this problem by offering a unified API for accessing metadata across all\
-    \ of these applications.\n\nBelow is the draft specification for the OpenProductionDataIO\
-    \ API."
-  version: 1.0.0
-servers: 
-  - url: |
-security: []
+    \ versioned metadata in a heterogeneous media supply chain.\
+    \ \n\n\nThe purpose of OPDIO is to define an open industry standard for interacting \
+    \ with media metadata.\
+    \ \n\nOpenProductionDataIO seeks to ensure metadata consistency and to provide a\
+    \ standard method for integrating software throughout the pre-production and production\
+    \ process, by offering a unified API for accessing metadata across all\
+    \ of these applications.\
+    \n\nBelow is the draft specification for the OpenProductionDataIO API."
+  version: 0.1.0
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
 tags:
 - name: Asset Management
   description: CRUDL operations for Assets, as defined by the OMC schema. Can be extended with custom properties.
@@ -43,7 +42,6 @@ paths:
                 $ref: '#/components/schemas/Asset'
               example: 
                 $ref: '#/components/examples/createAssetExample'
-
       responses:
         201:
           description: Created
@@ -90,6 +88,11 @@ paths:
           $ref: "#/components/responses/Forbidden"
         404:
           $ref: "#/components/responses/NotFound" 
+    parameters: 
+      - $ref: "#/components/parameters/access_token"
+      - $ref: "#/components/parameters/fields"
+      - $ref: "#/components/parameters/oauth_token"
+      
     delete:
       summary: Deletes an Asset reference from OpenProductionDataIO.
       operationId: deleteAssetById
@@ -330,6 +333,24 @@ components:
         created: true
         identifier: ["prod-pro", "abcd1234"]
   parameters: 
+    access_token:
+      description: OAuth access token.
+      in: query
+      name: access_token
+      schema:
+        type: string
+    fields:
+      description: Selector specifying which fields to include in a partial response.
+      in: query
+      name: fields
+      schema:
+        type: string
+    oauth_token:
+      description: OAuth 2.0 token for the current user.
+      in: query
+      name: oauth_token
+      schema:
+        type: string
     omc-id:
       description: A URL-encoded string representing the union of identifierScope and identifierValue.
       in: path
@@ -406,4 +427,13 @@ components:
           type: integer
           format: int32
         message:
-          type: string    
+          type: string
+  securitySchemes: 
+    oauthClientCredentials:
+      type: oauth2
+      flows: 
+        implicit: 
+          authorizationUrl: https://your-idp-here.com
+          scopes: 
+            user_impersonation: Access using current account context
+         
