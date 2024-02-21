@@ -103,11 +103,15 @@ paths:
         404:
           $ref: "#/components/responses/NotFound" 
     parameters: 
-      - $ref: "#/components/parameters/access_token"
       - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/oauth_token"      
     delete:
       summary: Deletes an Asset reference from OpenProductionDataIO.
+      security: 
+        - bearerToken: []
+        - openId:
+            - write
+        - oauth2User:
+            - write
       operationId: deleteAssetById
       tags: 
       -  Asset Management
@@ -118,37 +122,8 @@ paths:
           description: No Content 
         400:
           $ref: "#/components/responses/BadRequest"
-        403:
-          $ref: "#/components/responses/Forbidden"
-        404:
-          $ref: "#/components/responses/NotFound" 
-    patch:
-      summary: Updates the details of an already-created Asset with the provided OMC ID.
-      operationId: updateAssetById
-      tags:
-        - Asset Management
-      parameters:
-        - $ref: "#/components/parameters/omc-id"
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/Asset"
-        required: true
-      responses: 
-        200:
-          content:
-            application/json:
-              schema:
-                properties:
-                  data:
-                    $ref: "#/components/schemas/Asset"
-                  meta:
-                    $ref: "#/components/schemas/Meta"
-                type: object
-          description: ""          
-        400:
-          $ref: "#/components/responses/BadRequest"
+        401:
+          $ref: "#/components/responses/Unauthorized"  
         403:
           $ref: "#/components/responses/Forbidden"
         404:
@@ -156,6 +131,12 @@ paths:
   "/asset/{omc-id}/related":
     get:
       summary: Returns the list of Assets associated with this Asset's unique ID 
+      security: 
+        - bearerToken: []
+        - openId:
+            - read
+        - oauth2User:
+            - read
       operationId: getRelatedAssetsById
       tags:
         - Asset Management
@@ -178,14 +159,23 @@ paths:
           description: ""
         400:
           $ref: "#/components/responses/BadRequest"
+        401:
+          $ref: "#/components/responses/Unauthorized"    
         403:
           $ref: "#/components/responses/Forbidden"
         404:
           $ref: "#/components/responses/NotFound" 
+  
   /participant/create:
     post:
       summary: |
         Create new participants in OPDIO and receive an OMC identifier.
+      security: 
+        - bearerToken: []
+        - openId:
+            - write
+        - oauth2User:
+            - write
       operationId: createParticipant
       tags:
       - Participant Management
@@ -212,6 +202,8 @@ paths:
                 $ref: '#/components/examples/participantCreatedResponse'
         400:
           $ref: "#/components/responses/BadRequest"
+        401:
+          $ref: "#/components/responses/Unauthorized"  
         403:
           $ref: "#/components/responses/Forbidden"
         404:
@@ -220,11 +212,18 @@ paths:
     get:
       summary: |
         Returns a Participant object, given that Participant's unique ID 
+      security: 
+        - bearerToken: []
+        - openId:
+            - read
+        - oauth2User:
+            - read
       operationId: getParticipantById
       tags:
         - Participant Management
       parameters: 
         - $ref: '#/components/parameters/omc-id'
+        - $ref: '#/components/parameters/fields'
       responses:
         200:
           content:
@@ -239,12 +238,22 @@ paths:
           description: ""
         400:
           $ref: "#/components/responses/BadRequest"
+        401:
+          $ref: "#/components/responses/Forbidden"
         403:
           $ref: "#/components/responses/Forbidden"
         404:
           $ref: "#/components/responses/NotFound" 
+    parameters: 
+      - $ref: "#/components/parameters/fields"    
     delete:
       summary: Deletes an Participant reference from OpenProductionDataIO.
+      security: 
+        - bearerToken: []
+        - openId:
+            - write
+        - oauth2User:
+            - write
       operationId: deleteParticipantById
       tags: 
       -  Participant Management
@@ -255,37 +264,8 @@ paths:
           description: No Content 
         400:
           $ref: "#/components/responses/BadRequest"
-        403:
+        401:
           $ref: "#/components/responses/Forbidden"
-        404:
-          $ref: "#/components/responses/NotFound" 
-    patch:
-      summary: Updates the details of an already-created participant with the provided OMC ID.
-      operationId: updateParticipantById
-      tags:
-        - Participant Management
-      parameters:
-        - $ref: "#/components/parameters/omc-id"
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: "#/components/schemas/Participant"
-        required: true
-      responses: 
-        200:
-          content:
-            application/json:
-              schema:
-                properties:
-                  data:
-                    $ref: "#/components/schemas/Participant"
-                  meta:
-                    $ref: "#/components/schemas/Meta"
-                type: object
-          description: ""
-        400:
-          $ref: "#/components/responses/BadRequest"
         403:
           $ref: "#/components/responses/Forbidden"
         404:
@@ -294,6 +274,12 @@ paths:
     get:
       summary: |
         Returns the list of Participants associated with this participant's unique ID 
+      security: 
+        - bearerToken: []
+        - openId:
+            - read
+        - oauth2User:
+            - read
       operationId: getRelatedParticipantsById
       tags:
         - Participant Management
@@ -316,6 +302,8 @@ paths:
           description: ""
         400:
           $ref: "#/components/responses/BadRequest"
+        401:
+          $ref: "#/components/responses/Unauthorized"
         403:
           $ref: "#/components/responses/Forbidden"
         404:
