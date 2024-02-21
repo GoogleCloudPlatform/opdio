@@ -1,4 +1,5 @@
 openapi: '3.1.0'
+servers: [] 
 jsonSchemaDialect: 'https://json-schema.org/draft/2019-09/schema'
 info:
   title: OpenProductionDataIO
@@ -17,19 +18,22 @@ info:
     url: http://www.apache.org/licenses/LICENSE-2.0.html
 tags:
 - name: Asset Management
-  description: CRUDL operations for Assets, as defined by the OMC schema. Can be extended with custom properties.
+  description: CRUDL operations for Assets, as defined by the OMC schema.
 - name: Participant Management
-  description: CRUDL operations for Participants, as defined by the OMC schema. Can be extended with custom properties.
+  description: CRUDL operations for Participants, as defined by the OMC schema.
 - name: Role Management
   description: CRUDL operations for Roles, which can be assigned to Participants and used to grant or deny access to metadata within OPDIO.
-- name: Schema Extensions
-  description: Extend the core [OMC schema](https://movielabs.com/omc/json/schema/v2.0) by specifying additional required fields for Assets, Participants and Roles.
-
 
 paths:
   /asset/create:
     post:
       summary: Create new Assets in OPDIO and receive an OMC identifier.
+      security: 
+        - bearerToken: []
+        - openId:
+            - write
+        - oauth2User:
+            - write
       operationId: createAsset
       tags:
       - Asset Management
@@ -58,6 +62,8 @@ paths:
                 $ref: '#/components/examples/assetCreatedResponse'
         400:
           $ref: "#/components/responses/BadRequest"
+        401:
+          $ref: "#/components/responses/Unauthorized"
         403:
           $ref: "#/components/responses/Forbidden"
         404:
@@ -65,6 +71,12 @@ paths:
   "/asset/{omc-id}":
     get:
       summary: Returns an Asset object, given that Asset's unique ID 
+      security: 
+        - bearerToken: []
+        - openId:
+            - read
+        - oauth2User:
+            - read
       operationId: getAssetById
       tags:
         - Asset Management
@@ -84,6 +96,8 @@ paths:
           description: ""
         400:
           $ref: "#/components/responses/BadRequest"
+        401:
+          $ref: "#/components/responses/Unauthorized"
         403:
           $ref: "#/components/responses/Forbidden"
         404:
@@ -91,8 +105,7 @@ paths:
     parameters: 
       - $ref: "#/components/parameters/access_token"
       - $ref: "#/components/parameters/fields"
-      - $ref: "#/components/parameters/oauth_token"
-      
+      - $ref: "#/components/parameters/oauth_token"      
     delete:
       summary: Deletes an Asset reference from OpenProductionDataIO.
       operationId: deleteAssetById
@@ -311,7 +324,7 @@ paths:
 components:
   examples:
     createAssetExample:
-      summary: This is an example of creating an Asset.
+      description: This is an example of creating an Asset.
       value:
         version:
             versionNumber: 1.2.3
@@ -372,6 +385,8 @@ components:
       description: You weren't authorized to make your request; check your permissions and try again.
     NotFound:
       description: The particular item you are requesting was not found. This occurs, for example, if you request an Asset by an ID that does not exist. 
+    Unauthorized:
+      description: You do not have access to that resource.
   schemas: 
     Asset:
       $ref: 'schemas/omc-asset.json#/$defs/Asset/properties/Asset'
@@ -429,11 +444,19 @@ components:
         message:
           type: string
   securitySchemes: 
-    oauthClientCredentials:
+    bearerToken:
+      description: Default authentication mechanism
+      scheme: bearer
+      bearerFormat: JWT
+      type: http
+    openId:
+      type: openIdConnect
+      openIdConnectUrl: /.well-known/openid-configuration
+    oauth2User:
       type: oauth2
       flows: 
         implicit: 
           authorizationUrl: https://your-idp-here.com
           scopes: 
-            user_impersonation: Access using current account context
-         
+            read: read data owned by user
+            write: write new data
