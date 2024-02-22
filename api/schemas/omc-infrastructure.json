@@ -925,38 +925,6 @@
                     ],
                     "title": "Version Number",
                     "description": "A designation indicating a place in a sequence of versions"
-                },
-                "provenance": {
-                    "type": "object",
-                    "properties": {
-                        "CreatedBy": {
-                            "oneOf": [
-                                {"$ref": "#/$defs/core/properties/reference"},
-                                {"$ref": "#/$defs/Participant/properties/Participant"}
-                            ]
-                        },
-                        "Role": {
-                            "oneOf": [
-                                {"$ref": "#/$defs/core/properties/reference"},
-                                {"$ref": "#/$defs/Participant/properties/Role"}
-                            ]
-                        },
-                        "createdOn": {"$ref": "#/$defs/Utility/properties/time/properties/dateTime"},
-                        "Origin": {
-                            "oneOf": [
-                                {"$ref": "#/$defs/core/properties/reference"},
-                                {"$ref": "#/$defs/Asset/properties/Asset"}
-                            ]
-                        },
-                        "reason": {"type": "string"},
-                        "note": {
-                            "type": "array",
-                            "items": {"$ref": "#/$defs/Utility/properties/note"}
-                        }
-                    },
-                    "title": "Provenance",
-                    "description": "A record of when something was changed and by whom.",
-                    "additionalProperties": false
                 }
             },
             "additionalProperties": false,
