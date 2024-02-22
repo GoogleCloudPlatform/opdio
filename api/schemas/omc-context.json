@@ -1,0 +1,2427 @@
+{
+    "$schema": "https://json-schema.org/draft/2019-09/schema",
+    "$id": "https://movielabs.com/omc/json/schema/v2.0",
+    "title": "OMC-JSON schema v2.0",
+    "$comment": "Copyright 2021-2023 Motion Picture Laboratories, Inc.\nSPDX-License-Identifier: APACHE-2.0",
+    "oneOf": [
+        {"$ref": "#/$defs/core/properties/rootObject"},
+        {"$ref": "#/$defs/core/properties/rootArray"}
+    ],
+    "$defs": {
+        "MediaCreationContext": {
+            "type": "object",
+            "properties": {
+                "Character": {
+                    "type": "object",
+                    "title": "Character",
+                    "description": "A sentient entity (usually a person but not always) in the script whose specific identity is consequential to the narrative. A Character is generally identified by a specific name.",
+                    "properties": {
+                        "schemaVersion": {
+                            "title": "Schema Version",
+                            "$ref": "#/$defs/core/properties/schemaVersion"
+                        },
+                        "entityType": {
+                            "type": "string",
+                            "title": "Entity Type",
+                            "const": "Character"
+                        },
+                        "identifier": {"$ref": "#/$defs/Utility/properties/identifier"},
+                        "name": {
+                            "type": [
+                                "string",
+                                "null"
+                            ],
+                            "title": "Asset name",
+                            "description": "The primary name used for the character"
+                        },
+                        "description": {
+                            "type": [
+                                "string",
+                                "null"
+                            ],
+                            "title": "Character Description",
+                            "description": "A brief description of the character"
+                        },
+                        "characterName": {
+                            "title": "Character Name",
+                            "$ref": "#/$defs/Utility/properties/completeName"
+                        },
+                        "profile": {
+                            "type": "object",
+                            "title": "Profile",
+                            "properties": {
+                                "physicalCharacteristics": {
+                                    "type": "object",
+                                    "title": "Physical Characteristics",
+                                    "description": "Allows for the the description of certain physical characteristics on a character, things that might be useful to an art department, wardrobe or casting for example.",
+                                    "properties": {
+                                        "species": {
+                                            "type": "string",
+                                            "title": "Species",
+                                            "description": "A species to which this character belongs",
+                                            "examples": [
+                                                "Human",
+                                                "Borg",
+                                                "Goblin",
+                                                "Frog"
+                                            ]
+                                        },
+                                        "hairColor": {
+                                            "type": "string",
+                                            "title": "Hair Color",
+                                            "description": "The hair color of the character",
+                                            "examples": [
+                                                "Brown",
+                                                "Pink",
+                                                "Blonde",
+                                                ""
+                                            ]
+                                        },
+                                        "hairLength": {
+                                            "type": "string",
+                                            "title": "Hair Length",
+                                            "description": "The length of hair of the character"
+                                        },
+                                        "eyeColor": {
+                                            "type": "string",
+                                            "title": "Eye Color",
+                                            "description": "The color of the characters eyes"
+                                        },
+                                        "weight": {
+                                            "title": "weight",
+                                            "$ref": "#/$defs/Utility/properties/unitOfMeasurement/properties/weight"
+                                        },
+                                        "height": {
+                                            "title": "height",
+                                            "$ref": "#/$defs/Utility/properties/unitOfMeasurement/properties/linearDistance"
+                                        }
+                                    },
+                                    "additionalProperties": true
+                                },
+                                "gender": {"$ref": "#/$defs/Utility/properties/gender"},
+                                "background": {
+                                    "type": "object",
+                                    "title": "background",
+                                    "additionalProperties": true
+                                }
+                            },
+                            "additionalProperties": false
+                        },
+                        "customData": {"$ref": "#/$defs/core/properties/customData"},
+                        "Depiction": {
+                            "type": [
+                                "array",
+                                "null"
+                            ],
+                            "items": {
+                                "anyOf": [
+                                    {"$ref": "#/$defs/core/properties/reference"},
+                                    {"$ref": "#/$defs/MediaCreationContext/properties/Depiction"}
+                                ]
+                            }
+                        },
+                        "Context": {
+                            "type": [
+                                "array",
+                                "null"
+                            ],
+                            "items": {
+                                "anyOf": [
+                                    {"$ref": "#/$defs/core/properties/reference"},
+                                    {"$ref": "#/$defs/MediaCreationContext/properties/Context"}
+                                ]
+                            }
+                        },
+                        "entityInfo": {
+                            "title": "Entity Information",
+                            "$ref": "#/$defs/core/properties/entityInfo"
+                        }
+                    },
+                    "additionalProperties": false,
+                    "required": [
+                        "entityType",
+                        "identifier",
+                        "schemaVersion"
+                    ]
+                },
+                "Context": {
+                    "type": "object",
+                    "title": "Context",
+                    "properties": {
+                        "schemaVersion": {
+                            "title": "Schema Version",
+                            "$ref": "#/$defs/core/properties/schemaVersion"
+                        },
+                        "entityType": {
+                            "type": "string",
+                            "title": "Entity Type",
+                            "const": "Context"
+                        },
+                        "identifier": {"$ref": "#/$defs/Utility/properties/identifier"},
+                        "name": {
+                            "type": [
+                                "string",
+                                "null"
+                            ],
+                            "title": "Context name",
+                            "description": "A human readable name for the Context"
+                        },
+                        "description": {
+                            "type": "object",
+                            "title": "Description",
+                            "description": "A brief description of the context"
+                        },
+                        "contextType": {
+                            "type": [
+                                "string",
+                                "null"
+                            ],
+                            "title": "Context Type",
+                            "description": "A classifiaction of the type of context represented",
+                            "examples": [
+                                "narrative",
+                                "production"
+                            ]
+                        },
+                        "Context": {
+                            "type": [
+                                "array",
+                                "null"
+                            ],
+                            "items": {
+                                "anyOf": [
+                                    {"$ref": "#/$defs/core/properties/reference"},
+                                    {
+                                        "type": "object",
+                                        "$ref": "#/$defs/MediaCreationContext/properties/Context"
+                                    }
+                                ]
+                            }
+                        },
+                        "For": {
+                            "type": [
+                                "array",
+                                "null"
+                            ],
+                            "items": {
+                                "anyOf": [
+                                    {"$ref": "#/$defs/core/properties/reference"},
+                                    {"$ref": "#/$defs/Asset/properties/Asset"},
+                                    {"$ref": "#/$defs/MediaCreationContext/properties/Character"},
+                                    {"$ref": "#/$defs/MediaCreationContext/properties/Context"},
+                                    {"$ref": "#/$defs/MediaCreationContext/properties/CreativeWork"},
+                                    {"$ref": "#/$defs/MediaCreationContext/properties/Depiction"},
+                                    {"$ref": "#/$defs/Participant/properties/Participant"},
+                                    {"$ref": "#/$defs/MediaCreationContext/properties/SpecialAction"},
+                                    {"$ref": "#/$defs/MediaCreationContext/properties/NarrativeAudio"},
+                                    {"$ref": "#/$defs/MediaCreationContext/properties/Effect"},
+                                    {"$ref": "#/$defs/MediaCreationContext/properties/NarrativeLocation"},
+                                    {"$ref": "#/$defs/MediaCreationContext/properties/NarrativeObject"},
+                                    {"$ref": "#/$defs/MediaCreationContext/properties/NarrativeScene"},
+                                    {"$ref": "#/$defs/MediaCreationContext/properties/NarrativeStyling"},
+                                    {"$ref": "#/$defs/MediaCreationContext/properties/NarrativeWardrobe"},
+                                    {"$ref": "#/$defs/MediaCreationContext/properties/ProductionLocation"},
+                                    {"$ref": "#/$defs/MediaCreationContext/properties/ProductionScene"},
+                                    {"$ref": "#/$defs/MediaCreationContext/properties/Sequence"},
+                                    {"$ref": "#/$defs/MediaCreationContext/properties/Slate"}
+                                ]
+                            },
+                            "title": "Context For",
+                            "description": "The entities for which this Context applies to"
+                        },
+                        "customData": {
+                            "title": "Custom Data",
+                            "$ref": "#/$defs/core/properties/customData"
+                        },
+                        "entityInfo": {
+                            "title": "Entity Information",
+                            "$ref": "#/$defs/core/properties/entityInfo"
+                        },
+                        "contributor": {
+                            "type": [
+                                "object",
+                                "null"
+                            ],
+                            "properties": {
+                                "Participant": {
+                                    "type": [
+                                        "array",
+                                        "null"
+                                    ],
+                                    "items": {
+                                        "anyOf": [
+                                            {
+                                                "type": "object",
+                                                "$ref": "#/$defs/Participant/properties/Participant"
+                                            },
+                                            {"$ref": "#/$defs/core/properties/reference"}
+                                        ]
+                                    }
+                                }
+                            }
+                        },
+                        "contributesTo": {
+                            "type": [
+                                "object",
+                                "null"
+                            ],
+                            "properties": {
+                                "CreativeWork": {
+                                    "type": [
+                                        "array",
+                                        "null"
+                                    ],
+                                    "items": {
+                                        "anyOf": [
+                                            {
+                                                "type": "object",
+                                                "$ref": "#/$defs/MediaCreationContext/properties/CreativeWork"
+                                            },
+                                            {"$ref": "#/$defs/core/properties/reference"}
+                                        ]
+                                    }
+                                }
+                            }
+                        },
+                        "features": {
+                            "type": [
+                                "object",
+                                "null"
+                            ],
+                            "properties": {
+                                "Character": {
+                                    "type": [
+                                        "array",
+                                        "null"
+                                    ],
+                                    "items": {
+                                        "anyOf": [
+                                            {"$ref": "#/$defs/MediaCreationContext/properties/Character"},
+                                            {"$ref": "#/$defs/core/properties/reference"}
+                                        ]
+                                    }
+                                },
+                                "SpecialAction": {
+                                    "type": [
+                                        "array",
+                                        "null"
+                                    ],
+                                    "items": {
+                                        "anyOf": [
+                                            {"$ref": "#/$defs/MediaCreationContext/properties/SpecialAction"},
+                                            {"$ref": "#/$defs/core/properties/reference"}
+                                        ]
+                                    }
+                                },
+                                "NarrativeAudio": {
+                                    "type": [
+                                        "array",
+                                        "null"
+                                    ],
+                                    "items": {
+                                        "anyOf": [
+                                            {"$ref": "#/$defs/MediaCreationContext/properties/NarrativeAudio"},
+                                            {"$ref": "#/$defs/core/properties/reference"}
+                                        ]
+                                    }
+                                },
+                                "Effect": {
+                                    "type": [
+                                        "array",
+                                        "null"
+                                    ],
+                                    "items": {
+                                        "anyOf": [
+                                            {"$ref": "#/$defs/MediaCreationContext/properties/Effect"},
+                                            {"$ref": "#/$defs/core/properties/reference"}
+                                        ]
+                                    }
+                                },
+                                "NarrativeLocation": {
+                                    "type": [
+                                        "array",
+                                        "null"
+                                    ],
+                                    "items": {
+                                        "anyOf": [
+                                            {"$ref": "#/$defs/MediaCreationContext/properties/NarrativeLocation"},
+                                            {"$ref": "#/$defs/core/properties/reference"}
+                                        ]
+                                    }
+                                },
+                                "NarrativeObject": {
+                                    "type": [
+                                        "array",
+                                        "null"
+                                    ],
+                                    "items": {
+                                        "anyOf": [
+                                            {"$ref": "#/$defs/MediaCreationContext/properties/NarrativeObject"},
+                                            {"$ref": "#/$defs/core/properties/reference"}
+                                        ]
+                                    }
+                                },
+                                "NarrativeStyling": {
+                                    "type": [
+                                        "array",
+                                        "null"
+                                    ],
+                                    "items": {
+                                        "anyOf": [
+                                            {"$ref": "#/$defs/MediaCreationContext/properties/NarrativeStyling"},
+                                            {"$ref": "#/$defs/core/properties/reference"}
+                                        ]
+                                    }
+                                },
+                                "NarrativeWardrobe": {
+                                    "type": [
+                                        "array",
+                                        "null"
+                                    ],
+                                    "items": {
+                                        "anyOf": [
+                                            {"$ref": "#/$defs/MediaCreationContext/properties/NarrativeWardrobe"},
+                                            {"$ref": "#/$defs/core/properties/reference"}
+                                        ]
+                                    }
+                                }
+                            }
+                        },
+                        "featuresIn": {
+                            "type": [
+                                "object",
+                                "null"
+                            ],
+                            "properties": {
+                                "NarrativeScene": {
+                                    "type": [
+                                        "array",
+                                        "null"
+                                    ],
+                                    "items": {
+                                        "anyOf": [
+                                            {
+                                                "type": "object",
+                                                "$ref": "#/$defs/MediaCreationContext/properties/NarrativeScene"
+                                            },
+                                            {"$ref": "#/$defs/core/properties/reference"}
+                                        ]
+                                    }
+                                }
+                            }
+                        },
+                        "for": {
+                            "type": [
+                                "object",
+                                "null"
+                            ],
+                            "properties": {
+                                "Asset": {
+                                    "type": [
+                                        "array",
+                                        "null"
+                                    ],
+                                    "items": {
+                                        "anyOf": [
+                                            {"$ref": "#/$defs/Asset/properties/Asset"},
+                                            {"$ref": "#/$defs/core/properties/reference"}
+                                        ]
+                                    }
+                                },
+                                "CreativeWork": {
+                                    "type": [
+                                        "array",
+                                        "null"
+                                    ],
+                                    "items": {
+                                        "anyOf": [
+                                            {"$ref": "#/$defs/MediaCreationContext/properties/CreativeWork"},
+                                            {"$ref": "#/$defs/core/properties/reference"}
+                                        ]
+                                    }
+                                },
+                                "NarrativeScene": {
+                                    "type": [
+                                        "array",
+                                        "null"
+                                    ],
+                                    "items": {
+                                        "anyOf": [
+                                            {"$ref": "#/$defs/MediaCreationContext/properties/NarrativeScene"},
+                                            {"$ref": "#/$defs/core/properties/reference"}
+                                        ]
+                                    }
+                                },
+                                "ProductionScene": {
+                                    "type": [
+                                        "array",
+                                        "null"
+                                    ],
+                                    "items": {
+                                        "anyOf": [
+                                            {"$ref": "#/$defs/MediaCreationContext/properties/ProductionScene"},
+                                            {"$ref": "#/$defs/core/properties/reference"}
+                                        ]
+                                    }
+                                },
+                                "Sequence": {
+                                    "type": [
+                                        "array",
+                                        "null"
+                                    ],
+                                    "items": {
+                                        "anyOf": [
+                                            {"$ref": "#/$defs/MediaCreationContext/properties/Sequence"},
+                                            {"$ref": "#/$defs/core/properties/reference"}
+                                        ]
+                                    }
+                                },
+                                "Slate": {
+                                    "type": [
+                                        "array",
+                                        "null"
+                                    ],
+                                    "items": {
+                                        "anyOf": [
+                                            {"$ref": "#/$defs/MediaCreationContext/properties/Slate"},
+                                            {"$ref": "#/$defs/core/properties/reference"}
+                                        ]
+                                    }
+                                }
+                            }
+                        },
+                        "has": {
+                            "type": [
+                                "object",
+                                "null"
+                            ],
+                            "properties": {
+                                "Asset": {
+                                    "type": [
+                                        "array",
+                                        "null"
+                                    ],
+                                    "items": {
+                                        "anyOf": [
+                                            {"$ref": "#/$defs/Asset/properties/Asset"},
+                                            {"$ref": "#/$defs/core/properties/reference"}
+                                        ]
+                                    }
+                                },
+                                "Infrastructure": {
+                                    "type": [
+                                        "array",
+                                        "null"
+                                    ],
+                                    "items": {
+                                        "anyOf": [
+                                            {
+                                                "$ref": "#/$defs/Infrastructure/properties/Infrastructure",
+                                                "type": "object"
+                                            },
+                                            {"$ref": "#/$defs/core/properties/reference"}
+                                        ]
+                                    }
+                                },
+                                "SpecialAction": {
+                                    "type": [
+                                        "array",
+                                        "null"
+                                    ],
+                                    "items": {
+                                        "anyOf": [
+                                            {"$ref": "#/$defs/MediaCreationContext/properties/SpecialAction"},
+                                            {"$ref": "#/$defs/core/properties/reference"}
+                                        ]
+                                    }
+                                },
+                                "NarrativeLocation": {
+                                    "type": [
+                                        "array",
+                                        "null"
+                                    ],
+                                    "items": {
+                                        "anyOf": [
+                                            {"$ref": "#/$defs/MediaCreationContext/properties/NarrativeLocation"},
+                                            {"$ref": "#/$defs/core/properties/reference"}
+                                        ]
+                                    }
+                                },
+                                "NarrativeScene": {
+                                    "type": [
+                                        "array",
+                                        "null"
+                                    ],
+                                    "items": {
+                                        "anyOf": [
+                                            {"$ref": "#/$defs/MediaCreationContext/properties/NarrativeScene"},
+                                            {"$ref": "#/$defs/core/properties/reference"}
+                                        ]
+                                    }
+                                },
+                                "Participant": {
+                                    "type": [
+                                        "array",
+                                        "null"
+                                    ],
+                                    "items": {
+                                        "anyOf": [
+                                            {
+                                                "$ref": "#/$defs/Participant/properties/Participant",
+                                                "type": "object"
+                                            },
+                                            {"$ref": "#/$defs/core/properties/reference"}
+                                        ]
+                                    }
+                                },
+                                "ProductionScene": {
+                                    "type": [
+                                        "array",
+                                        "null"
+                                    ],
+                                    "items": {
+                                        "anyOf": [
+                                            {"$ref": "#/$defs/MediaCreationContext/properties/ProductionScene"},
+                                            {"$ref": "#/$defs/core/properties/reference"}
+                                        ]
+                                    }
+                                },
+                                "Sequence": {
+                                    "type": [
+                                        "array",
+                                        "null"
+                                    ],
+                                    "items": {
+                                        "anyOf": [
+                                            {
+                                                "$ref": "#/$defs/MediaCreationContext/properties/Sequence",
+                                                "type": "object"
+                                            },
+                                            {"$ref": "#/$defs/core/properties/reference"}
+                                        ]
+                                    }
+                                },
+                                "Slate": {
+                                    "type": [
+                                        "array",
+                                        "null"
+                                    ],
+                                    "items": {
+                                        "anyOf": [
+                                            {
+                                                "$ref": "#/$defs/MediaCreationContext/properties/Slate",
+                                                "type": "object"
+                                            },
+                                            {"$ref": "#/$defs/core/properties/reference"}
+                                        ]
+                                    }
+                                }
+                            }
+                        },
+                        "neededBy": {
+                            "type": [
+                                "object",
+                                "null"
+                            ],
+                            "properties": {
+                                "Character": {
+                                    "type": [
+                                        "array",
+                                        "null"
+                                    ],
+                                    "items": {
+                                        "anyOf": [
+                                            {
+                                                "type": "object",
+                                                "$ref": "#/$defs/MediaCreationContext/properties/Character"
+                                            },
+                                            {"$ref": "#/$defs/core/properties/reference"}
+                                        ]
+                                    }
+                                }
+                            }
+                        },
+                        "needs": {
+                            "type": [
+                                "object",
+                                "null"
+                            ],
+                            "properties": {
+                                "NarrativeAudio": {
+                                    "type": [
+                                        "array",
+                                        "null"
+                                    ],
+                                    "items": {
+                                        "anyOf": [
+                                            {
+                                                "type": "object",
+                                                "$ref": "#/$defs/MediaCreationContext/properties/NarrativeAudio"
+                                            },
+                                            {"$ref": "#/$defs/core/properties/reference"}
+                                        ]
+                                    }
+                                },
+                                "SpecialAction": {
+                                    "type": [
+                                        "array",
+                                        "null"
+                                    ],
+                                    "items": {
+                                        "anyOf": [
+                                            {
+                                                "type": "object",
+                                                "$ref": "#/$defs/MediaCreationContext/properties/SpecialAction"
+                                            },
+                                            {"$ref": "#/$defs/core/properties/reference"}
+                                        ]
+                                    }
+                                },
+                                "Effect": {
+                                    "type": [
+                                        "array",
+                                        "null"
+                                    ],
+                                    "items": {
+                                        "anyOf": [
+                                            {
+                                                "type": "object",
+                                                "$ref": "#/$defs/MediaCreationContext/properties/Effect"
+                                            },
+                                            {"$ref": "#/$defs/core/properties/reference"}
+                                        ]
+                                    }
+                                },
+                                "NarrativeObject": {
+                                    "type": [
+                                        "array",
+                                        "null"
+                                    ],
+                                    "items": {
+                                        "anyOf": [
+                                            {
+                                                "type": "object",
+                                                "$ref": "#/$defs/MediaCreationContext/properties/NarrativeObject"
+                                            },
+                                            {"$ref": "#/$defs/core/properties/reference"}
+                                        ]
+                                    }
+                                },
+                                "NarrativeStyling": {
+                                    "type": [
+                                        "array",
+                                        "null"
+                                    ],
+                                    "items": {
+                                        "anyOf": [
+                                            {
+                                                "type": "object",
+                                                "$ref": "#/$defs/MediaCreationContext/properties/NarrativeStyling"
+                                            },
+                                            {"$ref": "#/$defs/core/properties/reference"}
+                                        ]
+                                    }
+                                },
+                                "NarrativeWardrobe": {
+                                    "type": [
+                                        "array",
+                                        "null"
+                                    ],
+                                    "items": {
+                                        "anyOf": [
+                                            {
+                                                "type": "object",
+                                                "$ref": "#/$defs/MediaCreationContext/properties/NarrativeWardrobe"
+                                            },
+                                            {"$ref": "#/$defs/core/properties/reference"}
+                                        ]
+                                    }
+                                }
+                            }
+                        },
+                        "releated": {
+                            "type": [
+                                "object",
+                                "null"
+                            ],
+                            "properties": {
+                                "ProductionScene": {
+                                    "type": [
+                                        "array",
+                                        "null"
+                                    ],
+                                    "items": {
+                                        "anyOf": [
+                                            {
+                                                "type": "object",
+                                                "$ref": "#/$defs/MediaCreationContext/properties/ProductionScene"
+                                            },
+                                            {"$ref": "#/$defs/core/properties/reference"}
+                                        ]
+                                    }
+                                }
+                            }
+                        },
+                        "represents": {
+                            "type": [
+                                "object",
+                                "null"
+                            ],
+                            "properties": {
+                                "NarrativeScene": {
+                                    "type": [
+                                        "array",
+                                        "null"
+                                    ],
+                                    "items": {
+                                        "anyOf": [
+                                            {
+                                                "type": "object",
+                                                "$ref": "#/$defs/MediaCreationContext/properties/NarrativeScene"
+                                            },
+                                            {"$ref": "#/$defs/core/properties/reference"}
+                                        ]
+                                    }
+                                }
+                            }
+                        },
+                        "representedBy": {
+                            "type": [
+                                "object",
+                                "null"
+                            ],
+                            "properties": {
+                                "ProductionScene": {
+                                    "type": [
+                                        "array",
+                                        "null"
+                                    ],
+                                    "items": {
+                                        "anyOf": [
+                                            {
+                                                "type": "object",
+                                                "$ref": "#/$defs/MediaCreationContext/properties/ProductionScene"
+                                            },
+                                            {"$ref": "#/$defs/core/properties/reference"}
+                                        ]
+                                    }
+                                }
+                            }
+                        },
+                        "usedIn": {
+                            "type": [
+                                "object",
+                                "null"
+                            ],
+                            "properties": {
+                                "Depiction": {
+                                    "type": [
+                                        "array",
+                                        "null"
+                                    ],
+                                    "items": {
+                                        "anyOf": [
+                                            {
+                                                "type": "object",
+                                                "$ref": "#/$defs/MediaCreationContext/properties/Depiction"
+                                            },
+                                            {"$ref": "#/$defs/core/properties/reference"}
+                                        ]
+                                    }
+                                },
+                                "ProductionLocation": {
+                                    "type": [
+                                        "array",
+                                        "null"
+                                    ],
+                                    "items": {
+                                        "anyOf": [
+                                            {
+                                                "type": "object",
+                                                "$ref": "#/$defs/MediaCreationContext/properties/ProductionLocation"
+                                            },
+                                            {"$ref": "#/$defs/core/properties/reference"}
+                                        ]
+                                    }
+                                },
+                                "ProductionScene": {
+                                    "type": [
+                                        "array",
+                                        "null"
+                                    ],
+                                    "items": {
+                                        "anyOf": [
+                                            {
+                                                "type": "object",
+                                                "$ref": "#/$defs/MediaCreationContext/properties/ProductionScene"
+                                            },
+                                            {"$ref": "#/$defs/core/properties/reference"}
+                                        ]
+                                    }
+                                }
+                            }
+                        },
+                        "uses": {
+                            "type": [
+                                "object",
+                                "null"
+                            ],
+                            "properties": {
+                                "Asset": {
+                                    "type": [
+                                        "array",
+                                        "null"
+                                    ],
+                                    "items": {
+                                        "anyOf": [
+                                            {
+                                                "type": "object",
+                                                "$ref": "#/$defs/Asset/properties/Asset"
+                                            },
+                                            {"$ref": "#/$defs/core/properties/reference"}
+                                        ]
+                                    }
+                                },
+                                "Depiction": {
+                                    "type": [
+                                        "array",
+                                        "null"
+                                    ],
+                                    "items": {
+                                        "anyOf": [
+                                            {
+                                                "type": "object",
+                                                "$ref": "#/$defs/MediaCreationContext/properties/Depiction"
+                                            },
+                                            {"$ref": "#/$defs/core/properties/reference"}
+                                        ]
+                                    }
+                                },
+                                "Infrastructure": {
+                                    "type": [
+                                        "array",
+                                        "null"
+                                    ],
+                                    "items": {
+                                        "anyOf": [
+                                            {
+                                                "type": "object",
+                                                "$ref": "#/$defs/Infrastructure/properties/Infrastructure"
+                                            },
+                                            {"$ref": "#/$defs/core/properties/reference"}
+                                        ]
+                                    }
+                                },
+                                "ProductionLocation": {
+                                    "type": [
+                                        "array",
+                                        "null"
+                                    ],
+                                    "items": {
+                                        "anyOf": [
+                                            {
+                                                "type": "object",
+                                                "$ref": "#/$defs/MediaCreationContext/properties/ProductionLocation"
+                                            },
+                                            {"$ref": "#/$defs/core/properties/reference"}
+                                        ]
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "additionalProperties": true,
+                    "required": [
+                        "entityType",
+                        "identifier",
+                        "schemaVersion"
+                    ],
+                    "description": "Informs scope within the construction process of a Creative Work."
+                },
+                "CreativeWork": {
+                    "type": "object",
+                    "title": "Creative Work",
+                    "properties": {
+                        "schemaVersion": {
+                            "title": "Schema Version",
+                            "$ref": "#/$defs/core/properties/schemaVersion"
+                        },
+                        "entityType": {
+                            "type": "string",
+                            "title": "Entity Type",
+                            "const": "CreativeWork"
+                        },
+                        "identifier": {"$ref": "#/$defs/Utility/properties/identifier"},
+                        "name": {
+                            "type": [
+                                "string",
+                                "null"
+                            ],
+                            "title": "Creative Work name",
+                            "description": "The primary name used for the creative work"
+                        },
+                        "description": {
+                            "type": [
+                                "string",
+                                "null"
+                            ],
+                            "title": "Creative Work Description",
+                            "description": "A brief description of the creative work"
+                        },
+                        "title": {
+                            "type": "object",
+                            "title": "Creative Work Title",
+                            "properties": {
+                                "workingTitle": {
+                                    "type": [
+                                        "string",
+                                        "null"
+                                    ],
+                                    "title": "Creative Work Working Title",
+                                    "description": "The working title of the work"
+                                },
+                                "officialTitle": {
+                                    "type": [
+                                        "string",
+                                        "null"
+                                    ],
+                                    "title": "Creative Work Official Title",
+                                    "description": "The official title of the work"
+                                },
+                                "internalTitle": {
+                                    "type": [
+                                        "string",
+                                        "null"
+                                    ],
+                                    "title": "Creative Work Internal Title",
+                                    "description": "The internal title of the work"
+                                }
+                            },
+                            "additionalProperties": true
+                        },
+                        "approximateLength": {
+                            "title": "Approximate Length",
+                            "$ref": "#/$defs/Utility/properties/time/properties/periodInTime/properties/durationTime"
+                        },
+                        "originalLanguage": {
+                            "type": [
+                                "array",
+                                "null"
+                            ],
+                            "title": "Original Languages",
+                            "items": {"$ref": "#/$defs/Utility/properties/language"}
+                        },
+                        "countryOfOrigin": {
+                            "type": [
+                                "array",
+                                "null"
+                            ],
+                            "title": "Country Of Origin",
+                            "items": {"$ref": "#/$defs/Utility/properties/country"}
+                        },
+                        "customData": {
+                            "title": "Custom Data",
+                            "$ref": "#/$defs/core/properties/customData"
+                        },
+                        "Context": {
+                            "type": [
+                                "array",
+                                "null"
+                            ],
+                            "items": {
+                                "anyOf": [
+                                    {"$ref": "#/$defs/core/properties/reference"},
+                                    {"$ref": "#/$defs/MediaCreationContext/properties/Context"}
+                                ]
+                            }
+                        },
+                        "entityInfo": {
+                            "title": "Entity Information",
+                            "$ref": "#/$defs/core/properties/entityInfo"
+                        }
+                    },
+                    "additionalProperties": false,
+                    "required": [
+                        "entityType",
+                        "identifier",
+                        "schemaVersion"
+                    ],
+                    "description": "A uniquely identified production."
+                },
+                "Depiction": {
+                    "type": "object",
+                    "title": "Depiction",
+                    "properties": {
+                        "schemaVersion": {"$ref": "#/$defs/core/properties/schemaVersion"},
+                        "entityType": {
+                            "type": "string",
+                            "title": "Entity Type",
+                            "const": "Depiction"
+                        },
+                        "identifier": {"$ref": "#/$defs/Utility/properties/identifier"},
+                        "name": {
+                            "type": [
+                                "string",
+                                "null"
+                            ],
+                            "title": "Depiction Styling Name",
+                            "description": "A human readable name for the styling"
+                        },
+                        "description": {
+                            "type": [
+                                "string",
+                                "null"
+                            ],
+                            "title": "Depiction Description",
+                            "description": "A brief description of the depiction or portrayal"
+                        },
+                        "depictionType": {
+                            "type": "string",
+                            "title": "Object type",
+                            "description": "A categorization of the type of depiction",
+                            "enum": [
+                                "depiction",
+                                "portrayal"
+                            ]
+                        },
+                        "customData": {"$ref": "#/$defs/core/properties/customData"},
+                        "Depicts": {
+                            "type": "object",
+                            "oneOf": [
+                                {"$ref": "#/$defs/core/properties/reference"},
+                                {"$ref": "#/$defs/MediaCreationContext/properties/Character"},
+                                {"$ref": "#/$defs/MediaCreationContext/properties/NarrativeLocation"},
+                                {"$ref": "#/$defs/MediaCreationContext/properties/NarrativeObject"},
+                                {"$ref": "#/$defs/MediaCreationContext/properties/NarrativeStyling"},
+                                {"$ref": "#/$defs/MediaCreationContext/properties/NarrativeWardrobe"}
+                            ]
+                        },
+                        "Depictor": {
+                            "type": "object",
+                            "oneOf": [
+                                {"$ref": "#/$defs/core/properties/reference"},
+                                {"$ref": "#/$defs/Asset/properties/Asset"},
+                                {"$ref": "#/$defs/Participant/properties/Participant"}
+                            ]
+                        },
+                        "Context": {
+                            "type": [
+                                "array",
+                                "null"
+                            ],
+                            "items": {
+                                "anyOf": [
+                                    {"$ref": "#/$defs/core/properties/reference"},
+                                    {"$ref": "#/$defs/MediaCreationContext/properties/Context"}
+                                ]
+                            }
+                        },
+                        "entityInfo": {
+                            "title": "Entity Information",
+                            "$ref": "#/$defs/core/properties/entityInfo"
+                        }
+                    },
+                    "additionalProperties": false,
+                    "required": [
+                        "entityType",
+                        "identifier",
+                        "schemaVersion"
+                    ],
+                    "description": "The representation of something from a narrative entity by a production entity in the Creative Work, specified or implied by the Script."
+                },
+                "Effect": {
+                    "type": "object",
+                    "title": "Effect",
+                    "properties": {
+                        "schemaVersion": {
+                            "title": "Schema Version",
+                            "$ref": "#/$defs/core/properties/schemaVersion"
+                        },
+                        "entityType": {
+                            "type": "string",
+                            "title": "Entity Type",
+                            "const": "Effect"
+                        },
+                        "identifier": {"$ref": "#/$defs/Utility/properties/identifier"},
+                        "name": {
+                            "type": [
+                                "string",
+                                "null"
+                            ],
+                            "title": "Narrative Effect Name",
+                            "description": "A human readable name for the effect"
+                        },
+                        "description": {
+                            "type": [
+                                "string",
+                                "null"
+                            ],
+                            "title": "Narrative Object Description",
+                            "description": "A brief description of the narrative effect"
+                        },
+                        "effectType": {
+                            "type": "string",
+                            "title": "Object type",
+                            "description": "A categorization of the type of effect.",
+                            "enum": [
+                                "effect",
+                                "specialEffect",
+                                "visualEffect"
+                            ]
+                        },
+                        "customData": {
+                            "title": "Custom Data",
+                            "$ref": "#/$defs/core/properties/customData"
+                        },
+                        "Context": {
+                            "type": [
+                                "array",
+                                "null"
+                            ],
+                            "items": {
+                                "anyOf": [
+                                    {"$ref": "#/$defs/core/properties/reference"},
+                                    {"$ref": "#/$defs/MediaCreationContext/properties/Context"}
+                                ]
+                            }
+                        },
+                        "entityInfo": {
+                            "title": "Entity Information",
+                            "$ref": "#/$defs/core/properties/entityInfo"
+                        }
+                    },
+                    "additionalProperties": false,
+                    "required": [
+                        "entityType",
+                        "identifier",
+                        "schemaVersion"
+                    ],
+                    "description": "An on screen visual effect considered essential to the narrative."
+                },
+                "NarrativeAudio": {
+                    "type": "object",
+                    "title": "Narrative Audio",
+                    "properties": {
+                        "schemaVersion": {
+                            "title": "Schema Version",
+                            "$ref": "#/$defs/core/properties/schemaVersion"
+                        },
+                        "entityType": {
+                            "type": "string",
+                            "title": "Entity Type",
+                            "const": "NarrativeAudio"
+                        },
+                        "identifier": {"$ref": "#/$defs/Utility/properties/identifier"},
+                        "name": {
+                            "type": [
+                                "string",
+                                "null"
+                            ],
+                            "title": "Narrative Object Name",
+                            "description": "A human readable name for the audio clip"
+                        },
+                        "description": {
+                            "type": [
+                                "string",
+                                "null"
+                            ],
+                            "title": "Narrative Audio Description",
+                            "description": "A brief description of the narrative audio"
+                        },
+                        "narrativeType": {
+                            "type": "string",
+                            "title": "Object type",
+                            "description": "A categorization of the type of audio.",
+                            "enum": [
+                                "audio",
+                                "soundEffect",
+                                "music"
+                            ]
+                        },
+                        "Depiction": {
+                            "type": [
+                                "array",
+                                "null"
+                            ],
+                            "items": {
+                                "anyOf": [
+                                    {"$ref": "#/$defs/core/properties/reference"},
+                                    {"$ref": "#/$defs/MediaCreationContext/properties/Depiction"}
+                                ]
+                            }
+                        },
+                        "customData": {
+                            "title": "Custom Data",
+                            "$ref": "#/$defs/core/properties/customData"
+                        },
+                        "Context": {
+                            "type": [
+                                "array",
+                                "null"
+                            ],
+                            "items": {
+                                "anyOf": [
+                                    {"$ref": "#/$defs/core/properties/reference"},
+                                    {"$ref": "#/$defs/MediaCreationContext/properties/Context"}
+                                ]
+                            }
+                        },
+                        "entityInfo": {
+                            "title": "Entity Information",
+                            "$ref": "#/$defs/core/properties/entityInfo"
+                        }
+                    },
+                    "additionalProperties": false,
+                    "required": [
+                        "entityType",
+                        "identifier",
+                        "schemaVersion"
+                    ],
+                    "description": "A named piece of audio significant to the narrative."
+                },
+                "NarrativeLocation": {
+                    "type": "object",
+                    "title": "Narrative Location",
+                    "properties": {
+                        "schemaVersion": {"$ref": "#/$defs/core/properties/schemaVersion"},
+                        "entityType": {
+                            "type": "string",
+                            "title": "Entity Type",
+                            "const": "NarrativeLocation"
+                        },
+                        "identifier": {"$ref": "#/$defs/Utility/properties/identifier"},
+                        "name": {
+                            "type": [
+                                "string",
+                                "null"
+                            ],
+                            "title": "Narrative Location Name",
+                            "description": "A human readable name for the location"
+                        },
+                        "description": {
+                            "type": [
+                                "string",
+                                "null"
+                            ],
+                            "title": "Narrative Location Description",
+                            "description": "A brief description of the narrative location"
+                        },
+                        "Location": {
+                            "oneOf": [
+                                {"$ref": "#/$defs/core/properties/reference"},
+                                {"$ref": "#/$defs/Utility/properties/Location"}
+                            ]
+                        },
+                        "Context": {
+                            "type": [
+                                "array",
+                                "null"
+                            ],
+                            "items": {
+                                "anyOf": [
+                                    {"$ref": "#/$defs/core/properties/reference"},
+                                    {"$ref": "#/$defs/MediaCreationContext/properties/Context"}
+                                ]
+                            }
+                        },
+                        "Depiction": {
+                            "type": [
+                                "array",
+                                "null"
+                            ],
+                            "items": {
+                                "anyOf": [
+                                    {"$ref": "#/$defs/core/properties/reference"},
+                                    {"$ref": "#/$defs/MediaCreationContext/properties/Depiction"}
+                                ]
+                            }
+                        },
+                        "customData": {"$ref": "#/$defs/core/properties/customData"},
+                        "entityInfo": {
+                            "title": "Entity Information",
+                            "$ref": "#/$defs/core/properties/entityInfo"
+                        }
+                    },
+                    "additionalProperties": false,
+                    "required": [
+                        "entityType",
+                        "identifier",
+                        "schemaVersion"
+                    ],
+                    "description": "A location specified or implied by the narrative."
+                },
+                "NarrativeObject": {
+                    "type": "object",
+                    "title": "Narrative Object",
+                    "properties": {
+                        "schemaVersion": {
+                            "title": "Schema Version",
+                            "$ref": "#/$defs/core/properties/schemaVersion"
+                        },
+                        "entityType": {
+                            "type": "string",
+                            "title": "Entity Type",
+                            "const": "NarrativeObject"
+                        },
+                        "identifier": {"$ref": "#/$defs/Utility/properties/identifier"},
+                        "name": {
+                            "type": [
+                                "string",
+                                "null"
+                            ],
+                            "title": "Narrative Object Name",
+                            "description": "A human readable name for the object"
+                        },
+                        "description": {
+                            "type": [
+                                "string",
+                                "null"
+                            ],
+                            "title": "Narrative Object Description",
+                            "description": "A brief description of the narrative object"
+                        },
+                        "narrativeType": {
+                            "type": "string",
+                            "title": "Object type",
+                            "description": "A departmental categorization for the object.",
+                            "enum": [
+                                "narrativeObject",
+                                "narrativeProp",
+                                "narrativeGreenery",
+                                "narrativeVehicle",
+                                "narrativeSetDressing"
+                            ]
+                        },
+                        "customData": {
+                            "title": "Custom Data",
+                            "$ref": "#/$defs/core/properties/customData"
+                        },
+                        "size": {
+                            "type": [
+                                "string",
+                                "null"
+                            ],
+                            "title": "Size"
+                        },
+                        "quantity": {
+                            "type": [
+                                "string",
+                                "number"
+                            ],
+                            "title": "Quantity"
+                        },
+                        "Context": {
+                            "type": [
+                                "array",
+                                "null"
+                            ],
+                            "items": {
+                                "anyOf": [
+                                    {"$ref": "#/$defs/core/properties/reference"},
+                                    {"$ref": "#/$defs/MediaCreationContext/properties/Context"}
+                                ]
+                            }
+                        },
+                        "Depiction": {
+                            "type": [
+                                "array",
+                                "null"
+                            ],
+                            "items": {
+                                "anyOf": [
+                                    {"$ref": "#/$defs/core/properties/reference"},
+                                    {"$ref": "#/$defs/MediaCreationContext/properties/Depiction"}
+                                ]
+                            }
+                        },
+                        "entityInfo": {
+                            "title": "Entity Information",
+                            "$ref": "#/$defs/core/properties/entityInfo"
+                        }
+                    },
+                    "additionalProperties": false,
+                    "required": [
+                        "entityType",
+                        "identifier",
+                        "schemaVersion"
+                    ],
+                    "description": "A named object related to or interacting with characters that is implied or understood to be necessary for the narrative. Includes items like props, wardrobe, set dressing and vehicles."
+                },
+                "NarrativeScene": {
+                    "type": "object",
+                    "title": "Narrative Scene",
+                    "properties": {
+                        "schemaVersion": {"$ref": "#/$defs/core/properties/schemaVersion"},
+                        "entityType": {
+                            "type": "string",
+                            "title": "Entity Type",
+                            "const": "NarrativeScene"
+                        },
+                        "identifier": {"$ref": "#/$defs/Utility/properties/identifier"},
+                        "name": {
+                            "type": "string",
+                            "title": "Scene  Name",
+                            "description": "A human readable name for the scene"
+                        },
+                        "sceneName": {
+                            "type": "object",
+                            "title": "Narrative Scene Name",
+                            "description": "A human readable name for the scene",
+                            "properties": {
+                                "fullName": {
+                                    "type": [
+                                        "string",
+                                        "null"
+                                    ],
+                                    "title": "Scene full name",
+                                    "description": "A full descriptive name for the scene"
+                                },
+                                "altName": {
+                                    "type": [
+                                        "string",
+                                        "null"
+                                    ],
+                                    "title": "Scene alternate name",
+                                    "description": "An alternate, often shorter, name used in applications to identify the scenes"
+                                }
+                            },
+                            "additionalProperties": true
+                        },
+                        "description": {
+                            "type": [
+                                "string",
+                                "null"
+                            ],
+                            "title": "Narrative Scene Description",
+                            "description": "A brief description of the narrative scene"
+                        },
+                        "sceneNumber": {
+                            "type": [
+                                "string",
+                                "null"
+                            ],
+                            "title": "Scene Number",
+                            "description": "A number used in the script to refer to the scene"
+                        },
+                        "slugline": {
+                            "type": "array",
+                            "title": "Slugline",
+                            "items": {
+                                "type": "object",
+                                "title": "Slugline",
+                                "description": "An arbitrary note or comment pertaining to the entity",
+                                "properties": {
+                                    "title": {
+                                        "type": [
+                                            "string",
+                                            "null"
+                                        ],
+                                        "title": "Title",
+                                        "description": "A title for the note or annotation"
+                                    },
+                                    "text": {
+                                        "type": [
+                                            "string",
+                                            "null"
+                                        ],
+                                        "title": "Text",
+                                        "description": "The text of the note or annotation"
+                                    }
+                                },
+                                "additionalProperties": false
+                            }
+                        },
+                        "customData": {"$ref": "#/$defs/core/properties/customData"},
+                        "Context": {
+                            "type": [
+                                "array",
+                                "null"
+                            ],
+                            "items": {
+                                "anyOf": [
+                                    {"$ref": "#/$defs/core/properties/reference"},
+                                    {"$ref": "#/$defs/MediaCreationContext/properties/Context"}
+                                ]
+                            }
+                        },
+                        "entityInfo": {
+                            "title": "Entity Information",
+                            "$ref": "#/$defs/core/properties/entityInfo"
+                        }
+                    },
+                    "additionalProperties": false,
+                    "required": [
+                        "entityType",
+                        "identifier",
+                        "schemaVersion"
+                    ],
+                    "description": "Taken from the narrative itself and traditionally defined by creative intent and typically a unity of time, place, action, or theme."
+                },
+                "NarrativeStyling": {
+                    "type": "object",
+                    "title": "Narrative Styling",
+                    "properties": {
+                        "schemaVersion": {"$ref": "#/$defs/core/properties/schemaVersion"},
+                        "entityType": {
+                            "type": "string",
+                            "title": "Entity Type",
+                            "const": "NarrativeStyling"
+                        },
+                        "identifier": {"$ref": "#/$defs/Utility/properties/identifier"},
+                        "name": {
+                            "type": [
+                                "string",
+                                "null"
+                            ],
+                            "title": "Narrative Styling Name",
+                            "description": "A human readable name for the styling"
+                        },
+                        "description": {
+                            "type": [
+                                "string",
+                                "null"
+                            ],
+                            "title": "Narrative Styling Description",
+                            "description": "A brief description of the narrative styling"
+                        },
+                        "narrativeType": {
+                            "type": "string",
+                            "title": "Object type",
+                            "description": "A categorization of the type styling.",
+                            "enum": [
+                                "narrativeStyling",
+                                "narrativeHair",
+                                "narrativeMakeup",
+                                "narrativeProsthetics"
+                            ]
+                        },
+                        "customData": {"$ref": "#/$defs/core/properties/customData"},
+                        "Context": {
+                            "type": [
+                                "array",
+                                "null"
+                            ],
+                            "items": {
+                                "anyOf": [
+                                    {"$ref": "#/$defs/core/properties/reference"},
+                                    {"$ref": "#/$defs/MediaCreationContext/properties/Context"}
+                                ]
+                            }
+                        },
+                        "Depiction": {
+                            "type": [
+                                "array",
+                                "null"
+                            ],
+                            "items": {
+                                "anyOf": [
+                                    {"$ref": "#/$defs/core/properties/reference"},
+                                    {"$ref": "#/$defs/MediaCreationContext/properties/Depiction"}
+                                ]
+                            }
+                        },
+                        "entityInfo": {
+                            "title": "Entity Information",
+                            "$ref": "#/$defs/core/properties/entityInfo"
+                        }
+                    },
+                    "additionalProperties": false,
+                    "required": [
+                        "entityType",
+                        "identifier",
+                        "schemaVersion"
+                    ],
+                    "description": "Styling required to prepare an actor for their role"
+                },
+                "NarrativeWardrobe": {
+                    "type": "object",
+                    "title": "Narrative Wardrobe",
+                    "properties": {
+                        "schemaVersion": {"$ref": "#/$defs/core/properties/schemaVersion"},
+                        "entityType": {
+                            "type": "string",
+                            "title": "Entity Type",
+                            "const": "NarrativeWardrobe"
+                        },
+                        "identifier": {"$ref": "#/$defs/Utility/properties/identifier"},
+                        "name": {
+                            "type": [
+                                "string",
+                                "null"
+                            ],
+                            "title": "Narrative Styling Name",
+                            "description": "A human readable name for the styling"
+                        },
+                        "description": {
+                            "type": [
+                                "string",
+                                "null"
+                            ],
+                            "title": "Narrative Wardrobe Description",
+                            "description": "A brief description of the narrative wardrobe"
+                        },
+                        "narrativeType": {
+                            "type": "string",
+                            "title": "Object type",
+                            "description": "A categorization of the type wardrobe",
+                            "enum": ["narrativeWardrobe"]
+                        },
+                        "customData": {"$ref": "#/$defs/core/properties/customData"},
+                        "Context": {
+                            "type": [
+                                "array",
+                                "null"
+                            ],
+                            "items": {
+                                "anyOf": [
+                                    {"$ref": "#/$defs/core/properties/reference"},
+                                    {"$ref": "#/$defs/MediaCreationContext/properties/Context"}
+                                ]
+                            }
+                        },
+                        "Depiction": {
+                            "type": [
+                                "array",
+                                "null"
+                            ],
+                            "items": {
+                                "anyOf": [
+                                    {"$ref": "#/$defs/core/properties/reference"},
+                                    {"$ref": "#/$defs/MediaCreationContext/properties/Depiction"}
+                                ]
+                            }
+                        },
+                        "entityInfo": {
+                            "title": "Entity Information",
+                            "$ref": "#/$defs/core/properties/entityInfo"
+                        }
+                    },
+                    "additionalProperties": false,
+                    "required": [
+                        "entityType",
+                        "identifier",
+                        "schemaVersion"
+                    ],
+                    "description": "The clothing for a Character in the narrative."
+                },
+                "ProductionLocation": {
+                    "type": "object",
+                    "title": "Production Location",
+                    "properties": {
+                        "schemaVersion": {
+                            "title": "Schema Version",
+                            "$ref": "#/$defs/core/properties/schemaVersion"
+                        },
+                        "entityType": {
+                            "type": "string",
+                            "title": "Entity Type",
+                            "const": "ProductionLocation"
+                        },
+                        "identifier": {"$ref": "#/$defs/Utility/properties/identifier"},
+                        "name": {
+                            "type": [
+                                "string",
+                                "null"
+                            ],
+                            "title": "Production Location Name",
+                            "description": "A human readable name for the location"
+                        },
+                        "description": {
+                            "type": [
+                                "string",
+                                "null"
+                            ],
+                            "title": "Production Location Description",
+                            "description": "A brief description of the production location"
+                        },
+                        "locationType": {
+                            "type": "string",
+                            "description": "Describes whether this is production location or more specifically a shooting location",
+                            "enum": [
+                                "production",
+                                "shooting"
+                            ],
+                            "default": "production"
+                        },
+                        "Location": {
+                            "oneOf": [
+                                {"$ref": "#/$defs/core/properties/reference"},
+                                {"$ref": "#/$defs/Utility/properties/Location"}
+                            ]
+                        },
+                        "customData": {
+                            "title": "Custom Data",
+                            "$ref": "#/$defs/core/properties/customData"
+                        },
+                        "Context": {
+                            "type": [
+                                "array",
+                                "null"
+                            ],
+                            "items": {
+                                "anyOf": [
+                                    {"$ref": "#/$defs/core/properties/reference"},
+                                    {"$ref": "#/$defs/MediaCreationContext/properties/Context"}
+                                ]
+                            }
+                        },
+                        "entityInfo": {
+                            "title": "Entity Information",
+                            "$ref": "#/$defs/core/properties/entityInfo"
+                        }
+                    },
+                    "additionalProperties": false,
+                    "required": [
+                        "entityType",
+                        "identifier",
+                        "schemaVersion"
+                    ],
+                    "description": "A real place that is used to depict the Narrative Location or used for creating the production."
+                },
+                "ProductionScene": {
+                    "type": "object",
+                    "title": "Production Scene",
+                    "properties": {
+                        "schemaVersion": {
+                            "title": "Schema Version",
+                            "$ref": "#/$defs/core/properties/schemaVersion"
+                        },
+                        "entityType": {
+                            "type": "string",
+                            "title": "Entity Type",
+                            "const": "ProductionScene"
+                        },
+                        "identifier": {"$ref": "#/$defs/Utility/properties/identifier"},
+                        "name": {
+                            "type": [
+                                "string",
+                                "null"
+                            ],
+                            "title": "Asset name",
+                            "description": "A human readable name for the production scene"
+                        },
+                        "description": {
+                            "type": [
+                                "string",
+                                "null"
+                            ],
+                            "title": "Asset description",
+                            "description": "A human readable description of the production scene"
+                        },
+                        "sceneName": {
+                            "title": "Scene Name",
+                            "$ref": "#/$defs/Utility/properties/basicName"
+                        },
+                        "sceneHeader": {
+                            "type": [
+                                "string",
+                                "null"
+                            ],
+                            "title": "Scene Header",
+                            "description": "Used when referring to the Production Scene. It is generally synonymous with Slugline and is used to divide a Script into scenes."
+                        },
+                        "sceneDescriptor": {
+                            "type": [
+                                "string",
+                                "null"
+                            ],
+                            "title": "Scene Descriptor",
+                            "description": "An alphanumeric reference to a Production Scene"
+                        },
+                        "sceneNumber": {
+                            "type": [
+                                "null",
+                                "string"
+                            ],
+                            "title": "Scene Number",
+                            "description": "A number tied to a Slugline when a Script is locked"
+                        },
+                        "customData": {"$ref": "#/$defs/core/properties/customData"},
+                        "Context": {
+                            "type": [
+                                "array",
+                                "null"
+                            ],
+                            "items": {
+                                "anyOf": [
+                                    {"$ref": "#/$defs/core/properties/reference"},
+                                    {"$ref": "#/$defs/MediaCreationContext/properties/Context"}
+                                ]
+                            }
+                        },
+                        "entityInfo": {
+                            "title": "Entity Information",
+                            "$ref": "#/$defs/core/properties/entityInfo"
+                        }
+                    },
+                    "additionalProperties": false,
+                    "required": [
+                        "entityType",
+                        "identifier",
+                        "schemaVersion"
+                    ],
+                    "description": "Defined either by explicit divisions in the structure of the Script, e.g., by a Slugline, or by additional capture for use in the Creative Work that is not tied to any particular Scene in the Script."
+                },
+                "Sequence": {
+                    "type": "object",
+                    "title": "Sequence",
+                    "properties": {
+                        "schemaVersion": {
+                            "title": "Schema Version",
+                            "$ref": "#/$defs/core/properties/schemaVersion"
+                        },
+                        "entityType": {
+                            "type": "string",
+                            "title": "Entity Type",
+                            "const": "Sequence"
+                        },
+                        "identifier": {"$ref": "#/$defs/Utility/properties/identifier"},
+                        "name": {
+                            "type": [
+                                "string",
+                                "null"
+                            ],
+                            "title": "Sequence Name",
+                            "description": "A human readable name for the editorial sequence"
+                        },
+                        "description": {
+                            "type": [
+                                "string",
+                                "null"
+                            ],
+                            "description": "A brief description of the sequence",
+                            "title": "Sequence description"
+                        },
+                        "provenance": {
+                            "$ref": "#/$defs/Utility/properties/provenance",
+                            "title": "Provenance"
+                        },
+                        "version": {
+                            "type": "object",
+                            "title": "Sequence Version Information",
+                            "description": "A particular form, variant, or representation of an Asset that differs in some way from its source Asset.",
+                            "additionalProperties": false,
+                            "properties": {
+                                "versionNumber": {"$ref": "#/$defs/Utility/properties/versionNumber"},
+                                "name": {
+                                    "type": "string",
+                                    "title": "A name for this specific version of the Asset"
+                                },
+                                "description": {
+                                    "type": [
+                                        "string",
+                                        "null"
+                                    ],
+                                    "title": "Asset description",
+                                    "description": "A human readable description of the version"
+                                },
+                                "annotation": {
+                                    "type": "array",
+                                    "items": {"$ref": "#/$defs/Utility/properties/note"},
+                                    "description": "A collection of notes specific to this version"
+                                },
+                                "VariantOf": {
+                                    "oneOf": [
+                                        {"$ref": "#/$defs/core/properties/reference"},
+                                        {"$ref": "#/$defs/MediaCreationContext/properties/Sequence"}
+                                    ]
+                                },
+                                "RevisionOf": {
+                                    "oneOf": [
+                                        {"$ref": "#/$defs/core/properties/reference"},
+                                        {"$ref": "#/$defs/MediaCreationContext/properties/Sequence"}
+                                    ]
+                                },
+                                "Variant": {
+                                    "type": "array",
+                                    "items": {
+                                        "anyOf": [
+                                            {"$ref": "#/$defs/core/properties/reference"},
+                                            {"$ref": "#/$defs/MediaCreationContext/properties/Sequence"}
+                                        ]
+                                    }
+                                },
+                                "Alternative": {
+                                    "type": "array",
+                                    "items": {
+                                        "anyOf": [
+                                            {"$ref": "#/$defs/core/properties/reference"},
+                                            {"$ref": "#/$defs/MediaCreationContext/properties/Sequence"}
+                                        ]
+                                    }
+                                },
+                                "Revision": {
+                                    "type": "array",
+                                    "items": {
+                                        "anyOf": [
+                                            {"$ref": "#/$defs/core/properties/reference"},
+                                            {"$ref": "#/$defs/MediaCreationContext/properties/Sequence"}
+                                        ]
+                                    }
+                                },
+                                "customData": {"$ref": "#/$defs/core/properties/customData"}
+                            }
+                        },
+                        "sequenceType": {
+                            "type": "string",
+                            "title": "Sequence Type",
+                            "enum": [
+                                "vfx",
+                                "editorial",
+                                "image",
+                                "animation",
+                                "color"
+                            ]
+                        },
+                        "SCD": {
+                            "title": "Sequence Chronology Descriptor",
+                            "oneOf": [
+                                {"$ref": "#/$defs/core/properties/reference"},
+                                {"$ref": "#/$defs/Asset/properties/Asset"}
+                            ]
+                        },
+                        "customData": {"$ref": "#/$defs/core/properties/customData"},
+                        "Context": {
+                            "type": [
+                                "array",
+                                "null"
+                            ],
+                            "items": {
+                                "anyOf": [
+                                    {"$ref": "#/$defs/core/properties/reference"},
+                                    {"$ref": "#/$defs/MediaCreationContext/properties/Context"}
+                                ]
+                            }
+                        },
+                        "entityInfo": {
+                            "title": "Entity Information",
+                            "$ref": "#/$defs/core/properties/entityInfo"
+                        }
+                    },
+                    "additionalProperties": false,
+                    "required": [
+                        "entityType",
+                        "identifier",
+                        "schemaVersion"
+                    ],
+                    "description": "A sequence of shots linked to creative intent."
+                },
+                "Slate": {
+                    "type": "object",
+                    "title": "Slate",
+                    "properties": {
+                        "schemaVersion": {
+                            "title": "Schema Version",
+                            "$ref": "#/$defs/core/properties/schemaVersion"
+                        },
+                        "entityType": {
+                            "type": "string",
+                            "title": "Entity Type",
+                            "const": "Slate"
+                        },
+                        "identifier": {"$ref": "#/$defs/Utility/properties/identifier"},
+                        "name": {
+                            "type": [
+                                "string",
+                                "null"
+                            ],
+                            "title": "Slate Name",
+                            "description": "A human readable name for the Slate"
+                        },
+                        "description": {
+                            "type": [
+                                "string",
+                                "null"
+                            ],
+                            "description": "A brief description of the slate",
+                            "title": "Slate description"
+                        },
+                        "slateUID": {
+                            "type": "string",
+                            "title": "Slate UID",
+                            "description": "Slate Unique Identifier"
+                        },
+                        "cameraLabel": {
+                            "type": [
+                                "string",
+                                "null"
+                            ],
+                            "title": "Camera Label",
+                            "description": "Label for the Camera responsible for the Capture, usually related to the role and responsibility of the group operating it and usually a single upper-case letter starting with A."
+                        },
+                        "cameraUnit": {
+                            "type": [
+                                "string",
+                                "null"
+                            ],
+                            "title": "Camera Unit",
+                            "description": "A group of Participants responsible for shooting some element of a Scene, e.g., a Main Unit or Second Unit."
+                        },
+                        "cameraRoll": {
+                            "type": [
+                                "string",
+                                "null"
+                            ],
+                            "title": "Camera Roll",
+                            "description": "Identifier for a group of events captured together on the same camera on the same media."
+                        },
+                        "soundRoll": {
+                            "type": [
+                                "string",
+                                "null"
+                            ],
+                            "title": "Sound Roll",
+                            "description": "Identifier for a group of audio events captured together on the same recording device and same media."
+                        },
+                        "shootDate": {
+                            "title": "Shoot Date",
+                            "$ref": "#/$defs/Utility/properties/time/properties/date",
+                            "description": "The date of capture or creation"
+                        },
+                        "shootDay": {
+                            "type": [
+                                "number",
+                                "string",
+                                "null"
+                            ],
+                            "title": "Shoot Day",
+                            "description": "The number of the day on the shooting schedule."
+                        },
+                        "recordingFPS": {
+                            "type": [
+                                "number",
+                                "null"
+                            ],
+                            "title": "Recording FPS",
+                            "description": "Frames per second recorded by the camera."
+                        },
+                        "CreativeWork": {
+                            "oneOf": [
+                                {"$ref": "#/$defs/core/properties/reference"},
+                                {"$ref": "#/$defs/MediaCreationContext/properties/CreativeWork"}
+                            ]
+                        },
+                        "Director": {
+                            "type": [
+                                "array",
+                                "null"
+                            ],
+                            "title": "Director",
+                            "items": {
+                                "anyOf": [
+                                    {"$ref": "#/$defs/core/properties/reference"},
+                                    {"$ref": "#/$defs/Participant/properties/Participant"}
+                                ]
+                            }
+                        },
+                        "customData": {"$ref": "#/$defs/core/properties/customData"},
+                        "Context": {
+                            "type": [
+                                "array",
+                                "null"
+                            ],
+                            "items": {
+                                "anyOf": [
+                                    {"$ref": "#/$defs/core/properties/reference"},
+                                    {"$ref": "#/$defs/MediaCreationContext/properties/Context"}
+                                ]
+                            }
+                        },
+                        "entityInfo": {
+                            "title": "Entity Information",
+                            "$ref": "#/$defs/core/properties/entityInfo"
+                        }
+                    },
+                    "additionalProperties": false,
+                    "required": [
+                        "entityType",
+                        "identifier",
+                        "schemaVersion"
+                    ],
+                    "description": "Used to capture key identifying information about what is being recorded on any given setup and take."
+                },
+                "SpecialAction": {
+                    "type": "object",
+                    "title": "Special Action",
+                    "properties": {
+                        "schemaVersion": {"$ref": "#/$defs/core/properties/schemaVersion"},
+                        "entityType": {
+                            "type": "string",
+                            "title": "Entity Type",
+                            "const": "NarrativeAction"
+                        },
+                        "identifier": {"$ref": "#/$defs/Utility/properties/identifier"},
+                        "name": {
+                            "type": [
+                                "string",
+                                "null"
+                            ],
+                            "title": "Narrative Action Name",
+                            "description": "A human readable name for the action"
+                        },
+                        "description": {
+                            "type": [
+                                "string",
+                                "null"
+                            ],
+                            "title": "Narrative Object Description",
+                            "description": "A brief description of the narrative action"
+                        },
+                        "actionType": {
+                            "type": "string",
+                            "title": "Object type",
+                            "description": "A categorization of the type action.",
+                            "enum": [
+                                "action",
+                                "stunt",
+                                "choreography",
+                                "fight",
+                                "motionCapture",
+                                "marine",
+                                "aerial"
+                            ]
+                        },
+                        "customData": {
+                            "title": "Custom Data",
+                            "$ref": "#/$defs/core/properties/customData"
+                        },
+                        "Context": {
+                            "type": [
+                                "array",
+                                "null"
+                            ],
+                            "items": {
+                                "anyOf": [
+                                    {"$ref": "#/$defs/core/properties/reference"},
+                                    {"$ref": "#/$defs/MediaCreationContext/properties/Context"}
+                                ]
+                            }
+                        },
+                        "entityInfo": {
+                            "title": "Entity Information",
+                            "$ref": "#/$defs/core/properties/entityInfo"
+                        }
+                    },
+                    "additionalProperties": false,
+                    "required": [
+                        "entityType",
+                        "identifier",
+                        "schemaVersion"
+                    ],
+                    "description": "An action or set of actions that are performed and require additional choreography or supervision."
+                }
+            },
+            "additionalProperties": false,
+            "title": "Media Creation Context Definitions"
+        },
+        "core": {
+            "type": "object",
+            "title": "Core",
+            "properties": {
+                "customData": {
+                    "type": "object",
+                    "title": "Custom Data",
+                    "description": "A user defined set of custom data in the payload of the instance, used where the formal schema lacks required properties",
+                    "additionalProperties": true
+                },
+                "schemaVersion": {
+                    "type": "string",
+                    "title": "Schema Version",
+                    "default": "https://movielabs.com/omc/json/schema/v2.0",
+                    "enum": ["https://movielabs.com/omc/json/schema/v2.0"],
+                    "description": "Describes the version of OMC-JSON schema that was used to create this instance"
+                },
+                "reference": {
+                    "type": [
+                        "object",
+                        "null"
+                    ],
+                    "properties": {
+                        "identifier": {"$ref": "#/$defs/Utility/properties/identifier"}
+                    },
+                    "title": "Reference entity",
+                    "additionalProperties": false,
+                    "description": "An identifier that references another entity in the graph"
+                },
+                "rootObject": {
+                    "type": "object",
+                    "properties": {
+                        "Asset": {
+                            "type": "array",
+                            "items": {"$ref": "#/$defs/Asset/properties/Asset"},
+                            "title": "Asset"
+                        },
+                        "AssetSC": {
+                            "type": "array",
+                            "items": {"$ref": "#/$defs/Asset/properties/AssetSC"},
+                            "title": "Asset Structural Characteristics"
+                        },
+                        "Character": {
+                            "type": "array",
+                            "items": {"$ref": "#/$defs/MediaCreationContext/properties/Character"},
+                            "title": "Character"
+                        },
+                        "Context": {
+                            "type": "array",
+                            "items": {"$ref": "#/$defs/MediaCreationContext/properties/Context"},
+                            "title": "Context"
+                        },
+                        "CreativeWork": {
+                            "type": "array",
+                            "title": "Creative Work",
+                            "items": {"$ref": "#/$defs/MediaCreationContext/properties/CreativeWork"}
+                        },
+                        "Depiction": {
+                            "type": "array",
+                            "items": {"$ref": "#/$defs/MediaCreationContext/properties/Depiction"},
+                            "title": "Context"
+                        },
+                        "NarrativeAudio": {
+                            "type": "array",
+                            "title": "Narrative Audio",
+                            "items": {"$ref": "#/$defs/MediaCreationContext/properties/NarrativeAudio"}
+                        },
+                        "NarrativeLocation": {
+                            "type": "array",
+                            "title": "Narrative Location",
+                            "items": {"$ref": "#/$defs/MediaCreationContext/properties/NarrativeLocation"}
+                        },
+                        "NarrativeObject": {
+                            "type": "array",
+                            "title": "Narrative Object",
+                            "items": {"$ref": "#/$defs/MediaCreationContext/properties/NarrativeObject"}
+                        },
+                        "NarrativeScene": {
+                            "type": "array",
+                            "title": "Narrative Scene",
+                            "items": {"$ref": "#/$defs/MediaCreationContext/properties/NarrativeScene"}
+                        },
+                        "NarrativeStyling": {
+                            "type": "array",
+                            "title": "Narrative Styling",
+                            "items": {"$ref": "#/$defs/MediaCreationContext/properties/NarrativeStyling"}
+                        },
+                        "NarrativeWardrobe": {
+                            "type": "array",
+                            "title": "Narrative Wardrobe",
+                            "items": {"$ref": "#/$defs/MediaCreationContext/properties/NarrativeWardrobe"}
+                        },
+                        "ProductionLocation": {
+                            "type": "array",
+                            "title": "Production Location",
+                            "items": {"$ref": "#/$defs/MediaCreationContext/properties/ProductionLocation"}
+                        },
+                        "ProductionScene": {
+                            "type": "array",
+                            "title": "Production Scene",
+                            "items": {"$ref": "#/$defs/MediaCreationContext/properties/ProductionScene"}
+                        },
+                        "Sequence": {
+                            "type": "array",
+                            "title": "Sequence",
+                            "items": {"$ref": "#/$defs/MediaCreationContext/properties/Sequence"}
+                        },
+                        "Slate": {
+                            "type": "array",
+                            "title": "Slate",
+                            "items": {"$ref": "#/$defs/MediaCreationContext/properties/Slate"}
+                        },
+                        "SpecialAction": {
+                            "type": "array",
+                            "title": "Special Action",
+                            "items": {"$ref": "#/$defs/MediaCreationContext/properties/SpecialAction"}
+                        },
+                        "Effect": {
+                            "type": "array",
+                            "title": "Effect",
+                            "items": {"$ref": "#/$defs/MediaCreationContext/properties/Effect"}
+                        },
+                        "Participant": {
+                            "type": "array",
+                            "items": {"$ref": "#/$defs/Participant/properties/Participant"},
+                            "title": "Participant"
+                        },
+                        "Person": {
+                            "type": "array",
+                            "items": {"$ref": "#/$defs/Participant/properties/Person"},
+                            "title": "Person"
+                        },
+                        "Department": {
+                            "type": "array",
+                            "items": {"$ref": "#/$defs/Participant/properties/Department"},
+                            "title": "Department"
+                        },
+                        "Organization": {
+                            "type": "array",
+                            "items": {"$ref": "#/$defs/Participant/properties/Organization"},
+                            "title": "Organization"
+                        },
+                        "Service": {
+                            "type": "array",
+                            "items": {"$ref": "#/$defs/Participant/properties/Service"},
+                            "title": "Service"
+                        },
+                        "Role": {
+                            "type": "array",
+                            "items": {"$ref": "#/$defs/Participant/properties/Role"},
+                            "title": "Service"
+                        },
+                        "Location": {
+                            "type": "array",
+                            "title": "Location",
+                            "items": {"$ref": "#/$defs/Utility/properties/Location"}
+                        }
+                    },
+                    "additionalProperties": false
+                },
+                "rootArray": {
+                    "type": "array",
+                    "items": {
+                        "anyOf": [
+                            {"$ref": "#/$defs/MediaCreationContext/properties/Character"},
+                            {"$ref": "#/$defs/Participant/properties/Participant"},
+                            {"$ref": "#/$defs/MediaCreationContext/properties/Context"},
+                            {"$ref": "#/$defs/MediaCreationContext/properties/CreativeWork"},
+                            {"$ref": "#/$defs/MediaCreationContext/properties/Depiction"},
+                            {"$ref": "#/$defs/MediaCreationContext/properties/NarrativeAudio"},
+                            {"$ref": "#/$defs/MediaCreationContext/properties/NarrativeLocation"},
+                            {"$ref": "#/$defs/MediaCreationContext/properties/NarrativeObject"},
+                            {"$ref": "#/$defs/MediaCreationContext/properties/NarrativeScene"},
+                            {"$ref": "#/$defs/MediaCreationContext/properties/NarrativeStyling"},
+                            {"$ref": "#/$defs/MediaCreationContext/properties/NarrativeWardrobe"},
+                            {"$ref": "#/$defs/MediaCreationContext/properties/ProductionLocation"},
+                            {"$ref": "#/$defs/MediaCreationContext/properties/ProductionScene"},
+                            {"$ref": "#/$defs/MediaCreationContext/properties/Slate"},
+                            {"$ref": "#/$defs/MediaCreationContext/properties/SpecialAction"},
+                            {"$ref": "#/$defs/MediaCreationContext/properties/Effect"},
+                            {"$ref": "#/$defs/Utility/properties/Location"},
+                            {"$ref": "#/$defs/Participant/properties/Role"},
+                            {"$ref": "#/$defs/Participant/properties/Person"},
+                            {"$ref": "#/$defs/Participant/properties/Department"},
+                            {"$ref": "#/$defs/Participant/properties/Organization"},
+                            {"$ref": "#/$defs/Participant/properties/Service"},
+                            {"$ref": "#/$defs/Asset/properties/Asset"},
+                            {"$ref": "#/$defs/Asset/properties/AssetSC"},
+                            {"$ref": "#/$defs/MediaCreationContext/properties/Sequence"},
+                            {"$ref": "#/$defs/Infrastructure/properties/Infrastructure"},
+                            {"$ref": "#/$defs/Infrastructure/properties/InfrastructureSC"},
+                            {"$ref": "#/$defs/Task/properties/Task"},
+                            {"$ref": "#/$defs/Task/properties/TaskSC"}
+                        ]
+                    }
+                },
+                "entityInfo": {
+                    "type": [
+                        "object",
+                        "null"
+                    ],
+                    "title": "Entity Information",
+                    "description": "Reserved for future use to describe specific details about the instance of the entity",
+                    "additionalProperties": false
+                }
+            },
+            "additionalProperties": false,
+            "description": "Helper objects used in building the schema"
+        }
+    }
+}

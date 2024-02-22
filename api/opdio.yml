@@ -308,7 +308,149 @@ paths:
           $ref: "#/components/responses/Forbidden"
         404:
           $ref: "#/components/responses/NotFound" 
-            
+
+  /character/create:
+      post:
+        summary: Create new Characters in OPDIO and receive an OMC identifier.
+        security: 
+          - bearerToken: []
+          - openId:
+              - write
+          - oauth2User:
+              - write
+        operationId: createCharacter
+        tags:
+        - Character Management
+        requestBody: 
+          description: This action creates a new Character within OpenProductionDataIO, which can later be retrieved using its Identifier.
+          required: true
+          content:
+            application/json:
+                schema:
+                  $ref: '#/components/schemas/Character'
+                example: 
+                  $ref: '#/components/examples/createCharacterExample'
+        responses:
+          201:
+            description: Created
+            content:
+              application/json:
+                schema:
+                  type: object
+                  properties:
+                    created:
+                      type: boolean
+                    identifier:
+                      $ref: '#/components/schemas/identifier'
+                example:
+                  $ref: '#/components/examples/characterCreatedResponse'
+          400:
+            $ref: "#/components/responses/BadRequest"
+          401:
+            $ref: "#/components/responses/Unauthorized"
+          403:
+            $ref: "#/components/responses/Forbidden"
+          404:
+            $ref: "#/components/responses/NotFound" 
+    "/character/{omc-id}":
+      get:
+        summary: Returns an Character object, given that Character's unique ID 
+        security: 
+          - bearerToken: []
+          - openId:
+              - read
+          - oauth2User:
+              - read
+        operationId: getCharacterById
+        tags:
+          - Character Management
+        parameters: 
+          - $ref: '#/components/parameters/omc-id'
+        responses:
+          200:
+            content:
+              application/json:
+                schema:
+                  properties:
+                    data:
+                      $ref: "#/components/schemas/Character"
+                    meta:
+                      $ref: "#/components/schemas/Meta"
+                  type: object
+            description: ""
+          400:
+            $ref: "#/components/responses/BadRequest"
+          401:
+            $ref: "#/components/responses/Unauthorized"
+          403:
+            $ref: "#/components/responses/Forbidden"
+          404:
+            $ref: "#/components/responses/NotFound" 
+      parameters: 
+        - $ref: "#/components/parameters/fields"
+      delete:
+        summary: Deletes an Character reference from OpenProductionDataIO.
+        security: 
+          - bearerToken: []
+          - openId:
+              - write
+          - oauth2User:
+              - write
+        operationId: deleteCharacterById
+        tags: 
+        -  Character Management
+        parameters:
+          - $ref: "#/components/parameters/omc-id"
+        responses:
+          204:
+            description: No Content 
+          400:
+            $ref: "#/components/responses/BadRequest"
+          401:
+            $ref: "#/components/responses/Unauthorized"  
+          403:
+            $ref: "#/components/responses/Forbidden"
+          404:
+            $ref: "#/components/responses/NotFound" 
+    "/character/{omc-id}/related":
+      get:
+        summary: Returns the list of Characters associated with this Character's unique ID 
+        security: 
+          - bearerToken: []
+          - openId:
+              - read
+          - oauth2User:
+              - read
+        operationId: getRelatedCharactersById
+        tags:
+          - Character Management
+        parameters: 
+          - $ref: '#/components/parameters/omc-id'
+        responses:
+          200:
+            content:
+              application/json:
+                schema:
+                  properties:
+                    data:
+                      items:
+                        $ref: "#/components/schemas/identifier"
+                      type: array
+                    meta:
+                      $ref: "#/components/schemas/Meta"
+                    pagination:
+                      $ref: "#/components/schemas/Pagination"
+            description: ""
+          400:
+            $ref: "#/components/responses/BadRequest"
+          401:
+            $ref: "#/components/responses/Unauthorized"    
+          403:
+            $ref: "#/components/responses/Forbidden"
+          404:
+            $ref: "#/components/responses/NotFound" 
+ 
+                 
 components:
   examples:
     createAssetExample:
@@ -378,6 +520,8 @@ components:
   schemas: 
     Asset:
       $ref: 'schemas/omc-asset.json#/$defs/Asset/properties/Asset'
+    Character:
+      $ref: 'schemas/omc-context.json#/$defs/Character/properties'
     Participant:
       $ref: 'schemas/omc-participant.json#/$defs/Participant'
     identifier: 
