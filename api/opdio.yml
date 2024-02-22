@@ -664,11 +664,11 @@ components:
     Asset:
       $ref: 'schemas/omc-asset.json#/$defs/Asset/properties/Asset'
     Character:
-      $ref: 'schemas/omc-context.json#/$defs/MediaCreationContext/Character/properties'
+      $ref: 'schemas/omc-context.json#/$defs/MediaCreationContext/properties/Character/properties'
     CreativeWork:
-      $ref: 'schemas/omc-context.json#/$defs/MediaCreationContext/CreativeWork/properties'
+      $ref: 'schemas/omc-context.json#/$defs/MediaCreationContext/properties/CreativeWork/properties'
     Depiction:
-      $ref: 'schemas/omc-context.json#/$defs/MediaCreationContext/Depiction/properties'
+      $ref: 'schemas/omc-context.json#/$defs/MediaCreationContext/properties/Depiction/properties'
     Participant:
       $ref: 'schemas/omc-participant.json#/$defs/Participant'
     identifier: 
