@@ -733,7 +733,289 @@ paths:
           $ref: "#/components/responses/Forbidden"
         404:
           $ref: "#/components/responses/NotFound" 
-                      
+
+  /narrativeaudio/create:
+    post:
+      summary: Create new NarrativeAudios in OPDIO and receive an OMC identifier.
+      security: 
+        - bearerToken: []
+        - openId:
+            - write
+        - oauth2User:
+            - write
+      operationId: createNarrativeAudio
+      tags:
+      - NarrativeAudio Management
+      requestBody: 
+        description: This action creates a new NarrativeAudio within OpenProductionDataIO, which can later be retrieved using its Identifier.
+        required: true
+        content:
+          application/json:
+              schema:
+                $ref: '#/components/schemas/NarrativeAudio'
+              example: 
+                $ref: '#/components/examples/createNarrativeAudioExample'
+      responses:
+        201:
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  created:
+                    type: boolean
+                  identifier:
+                    $ref: '#/components/schemas/identifier'
+              example:
+                $ref: '#/components/examples/narrativeaudioCreatedResponse'
+        400:
+          $ref: "#/components/responses/BadRequest"
+        401:
+          $ref: "#/components/responses/Unauthorized"
+        403:
+          $ref: "#/components/responses/Forbidden"
+        404:
+          $ref: "#/components/responses/NotFound" 
+  "/narrativeaudio/{omc-id}":
+    get:
+      summary: Returns an NarrativeAudio object, given that NarrativeAudio's unique ID 
+      security: 
+        - bearerToken: []
+        - openId:
+            - read
+        - oauth2User:
+            - read
+      operationId: getNarrativeAudioById
+      tags:
+        - NarrativeAudio Management
+      parameters: 
+        - $ref: '#/components/parameters/omc-id'
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    $ref: "#/components/schemas/NarrativeAudio"
+                  meta:
+                    $ref: "#/components/schemas/Meta"
+                type: object
+          description: ""
+        400:
+          $ref: "#/components/responses/BadRequest"
+        401:
+          $ref: "#/components/responses/Unauthorized"
+        403:
+          $ref: "#/components/responses/Forbidden"
+        404:
+          $ref: "#/components/responses/NotFound" 
+    parameters: 
+      - $ref: "#/components/parameters/fields"
+    delete:
+      summary: Deletes an NarrativeAudio reference from OpenProductionDataIO.
+      security: 
+        - bearerToken: []
+        - openId:
+            - write
+        - oauth2User:
+            - write
+      operationId: deleteNarrativeAudioById
+      tags: 
+      -  NarrativeAudio Management
+      parameters:
+        - $ref: "#/components/parameters/omc-id"
+      responses:
+        204:
+          description: No Content 
+        400:
+          $ref: "#/components/responses/BadRequest"
+        401:
+          $ref: "#/components/responses/Unauthorized"  
+        403:
+          $ref: "#/components/responses/Forbidden"
+        404:
+          $ref: "#/components/responses/NotFound" 
+  "/narrativeaudio/{omc-id}/related":
+    get:
+      summary: Returns the list of NarrativeAudios associated with this NarrativeAudio's unique ID 
+      security: 
+        - bearerToken: []
+        - openId:
+            - read
+        - oauth2User:
+            - read
+      operationId: getRelatedNarrativeAudiosById
+      tags:
+        - NarrativeAudio Management
+      parameters: 
+        - $ref: '#/components/parameters/omc-id'
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items:
+                      $ref: "#/components/schemas/identifier"
+                    type: array
+                  meta:
+                    $ref: "#/components/schemas/Meta"
+                  pagination:
+                    $ref: "#/components/schemas/Pagination"
+          description: ""
+        400:
+          $ref: "#/components/responses/BadRequest"
+        401:
+          $ref: "#/components/responses/Unauthorized"    
+        403:
+          $ref: "#/components/responses/Forbidden"
+        404:
+          $ref: "#/components/responses/NotFound" 
+            
+  /narrativelocation/create:
+    post:
+      summary: Create new NarrativeLocations in OPDIO and receive an OMC identifier.
+      security: 
+        - bearerToken: []
+        - openId:
+            - write
+        - oauth2User:
+            - write
+      operationId: createNarrativeLocation
+      tags:
+      - NarrativeLocation Management
+      requestBody: 
+        description: This action creates a new NarrativeLocation within OpenProductionDataIO, which can later be retrieved using its Identifier.
+        required: true
+        content:
+          application/json:
+              schema:
+                $ref: '#/components/schemas/NarrativeLocation'
+              example: 
+                $ref: '#/components/examples/createNarrativeLocationExample'
+      responses:
+        201:
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  created:
+                    type: boolean
+                  identifier:
+                    $ref: '#/components/schemas/identifier'
+              example:
+                $ref: '#/components/examples/narrativelocationCreatedResponse'
+        400:
+          $ref: "#/components/responses/BadRequest"
+        401:
+          $ref: "#/components/responses/Unauthorized"
+        403:
+          $ref: "#/components/responses/Forbidden"
+        404:
+          $ref: "#/components/responses/NotFound" 
+  "/narrativelocation/{omc-id}":
+    get:
+      summary: Returns an NarrativeLocation object, given that NarrativeLocation's unique ID 
+      security: 
+        - bearerToken: []
+        - openId:
+            - read
+        - oauth2User:
+            - read
+      operationId: getNarrativeLocationById
+      tags:
+        - NarrativeLocation Management
+      parameters: 
+        - $ref: '#/components/parameters/omc-id'
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    $ref: "#/components/schemas/NarrativeLocation"
+                  meta:
+                    $ref: "#/components/schemas/Meta"
+                type: object
+          description: ""
+        400:
+          $ref: "#/components/responses/BadRequest"
+        401:
+          $ref: "#/components/responses/Unauthorized"
+        403:
+          $ref: "#/components/responses/Forbidden"
+        404:
+          $ref: "#/components/responses/NotFound" 
+    parameters: 
+      - $ref: "#/components/parameters/fields"
+    delete:
+      summary: Deletes an NarrativeLocation reference from OpenProductionDataIO.
+      security: 
+        - bearerToken: []
+        - openId:
+            - write
+        - oauth2User:
+            - write
+      operationId: deleteNarrativeLocationById
+      tags: 
+      -  NarrativeLocation Management
+      parameters:
+        - $ref: "#/components/parameters/omc-id"
+      responses:
+        204:
+          description: No Content 
+        400:
+          $ref: "#/components/responses/BadRequest"
+        401:
+          $ref: "#/components/responses/Unauthorized"  
+        403:
+          $ref: "#/components/responses/Forbidden"
+        404:
+          $ref: "#/components/responses/NotFound" 
+  "/narrativelocation/{omc-id}/related":
+    get:
+      summary: Returns the list of NarrativeLocations associated with this NarrativeLocation's unique ID 
+      security: 
+        - bearerToken: []
+        - openId:
+            - read
+        - oauth2User:
+            - read
+      operationId: getRelatedNarrativeLocationsById
+      tags:
+        - NarrativeLocation Management
+      parameters: 
+        - $ref: '#/components/parameters/omc-id'
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items:
+                      $ref: "#/components/schemas/identifier"
+                    type: array
+                  meta:
+                    $ref: "#/components/schemas/Meta"
+                  pagination:
+                    $ref: "#/components/schemas/Pagination"
+          description: ""
+        400:
+          $ref: "#/components/responses/BadRequest"
+        401:
+          $ref: "#/components/responses/Unauthorized"    
+        403:
+          $ref: "#/components/responses/Forbidden"
+        404:
+          $ref: "#/components/responses/NotFound" 
+            
   /narrativeobject/create:
     post:
       summary: Create new NarrativeObjects in OPDIO and receive an OMC identifier.
@@ -875,7 +1157,288 @@ paths:
         404:
           $ref: "#/components/responses/NotFound" 
 
-
+  /narrativestyling/create:
+    post:
+      summary: Create new NarrativeStylings in OPDIO and receive an OMC identifier.
+      security: 
+        - bearerToken: []
+        - openId:
+            - write
+        - oauth2User:
+            - write
+      operationId: createNarrativeStyling
+      tags:
+      - NarrativeStyling Management
+      requestBody: 
+        description: This action creates a new NarrativeStyling within OpenProductionDataIO, which can later be retrieved using its Identifier.
+        required: true
+        content:
+          application/json:
+              schema:
+                $ref: '#/components/schemas/NarrativeStyling'
+              example: 
+                $ref: '#/components/examples/createNarrativeStylingExample'
+      responses:
+        201:
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  created:
+                    type: boolean
+                  identifier:
+                    $ref: '#/components/schemas/identifier'
+              example:
+                $ref: '#/components/examples/narrativestylingCreatedResponse'
+        400:
+          $ref: "#/components/responses/BadRequest"
+        401:
+          $ref: "#/components/responses/Unauthorized"
+        403:
+          $ref: "#/components/responses/Forbidden"
+        404:
+          $ref: "#/components/responses/NotFound" 
+  "/narrativestyling/{omc-id}":
+    get:
+      summary: Returns an NarrativeStyling object, given that NarrativeStyling's unique ID 
+      security: 
+        - bearerToken: []
+        - openId:
+            - read
+        - oauth2User:
+            - read
+      operationId: getNarrativeStylingById
+      tags:
+        - NarrativeStyling Management
+      parameters: 
+        - $ref: '#/components/parameters/omc-id'
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    $ref: "#/components/schemas/NarrativeStyling"
+                  meta:
+                    $ref: "#/components/schemas/Meta"
+                type: object
+          description: ""
+        400:
+          $ref: "#/components/responses/BadRequest"
+        401:
+          $ref: "#/components/responses/Unauthorized"
+        403:
+          $ref: "#/components/responses/Forbidden"
+        404:
+          $ref: "#/components/responses/NotFound" 
+    parameters: 
+      - $ref: "#/components/parameters/fields"
+    delete:
+      summary: Deletes an NarrativeStyling reference from OpenProductionDataIO.
+      security: 
+        - bearerToken: []
+        - openId:
+            - write
+        - oauth2User:
+            - write
+      operationId: deleteNarrativeStylingById
+      tags: 
+      -  NarrativeStyling Management
+      parameters:
+        - $ref: "#/components/parameters/omc-id"
+      responses:
+        204:
+          description: No Content 
+        400:
+          $ref: "#/components/responses/BadRequest"
+        401:
+          $ref: "#/components/responses/Unauthorized"  
+        403:
+          $ref: "#/components/responses/Forbidden"
+        404:
+          $ref: "#/components/responses/NotFound" 
+  "/narrativestyling/{omc-id}/related":
+    get:
+      summary: Returns the list of NarrativeStylings associated with this NarrativeStyling's unique ID 
+      security: 
+        - bearerToken: []
+        - openId:
+            - read
+        - oauth2User:
+            - read
+      operationId: getRelatedNarrativeStylingsById
+      tags:
+        - NarrativeStyling Management
+      parameters: 
+        - $ref: '#/components/parameters/omc-id'
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items:
+                      $ref: "#/components/schemas/identifier"
+                    type: array
+                  meta:
+                    $ref: "#/components/schemas/Meta"
+                  pagination:
+                    $ref: "#/components/schemas/Pagination"
+          description: ""
+        400:
+          $ref: "#/components/responses/BadRequest"
+        401:
+          $ref: "#/components/responses/Unauthorized"    
+        403:
+          $ref: "#/components/responses/Forbidden"
+        404:
+          $ref: "#/components/responses/NotFound" 
+         
+  /narrativewardrobe/create:
+    post:
+      summary: Create new NarrativeWardrobes in OPDIO and receive an OMC identifier.
+      security: 
+        - bearerToken: []
+        - openId:
+            - write
+        - oauth2User:
+            - write
+      operationId: createNarrativeWardrobe
+      tags:
+      - NarrativeWardrobe Management
+      requestBody: 
+        description: This action creates a new NarrativeWardrobe within OpenProductionDataIO, which can later be retrieved using its Identifier.
+        required: true
+        content:
+          application/json:
+              schema:
+                $ref: '#/components/schemas/NarrativeWardrobe'
+              example: 
+                $ref: '#/components/examples/createNarrativeWardrobeExample'
+      responses:
+        201:
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  created:
+                    type: boolean
+                  identifier:
+                    $ref: '#/components/schemas/identifier'
+              example:
+                $ref: '#/components/examples/narrativewardrobeCreatedResponse'
+        400:
+          $ref: "#/components/responses/BadRequest"
+        401:
+          $ref: "#/components/responses/Unauthorized"
+        403:
+          $ref: "#/components/responses/Forbidden"
+        404:
+          $ref: "#/components/responses/NotFound" 
+  "/narrativewardrobe/{omc-id}":
+    get:
+      summary: Returns an NarrativeWardrobe object, given that NarrativeWardrobe's unique ID 
+      security: 
+        - bearerToken: []
+        - openId:
+            - read
+        - oauth2User:
+            - read
+      operationId: getNarrativeWardrobeById
+      tags:
+        - NarrativeWardrobe Management
+      parameters: 
+        - $ref: '#/components/parameters/omc-id'
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    $ref: "#/components/schemas/NarrativeWardrobe"
+                  meta:
+                    $ref: "#/components/schemas/Meta"
+                type: object
+          description: ""
+        400:
+          $ref: "#/components/responses/BadRequest"
+        401:
+          $ref: "#/components/responses/Unauthorized"
+        403:
+          $ref: "#/components/responses/Forbidden"
+        404:
+          $ref: "#/components/responses/NotFound" 
+    parameters: 
+      - $ref: "#/components/parameters/fields"
+    delete:
+      summary: Deletes an NarrativeWardrobe reference from OpenProductionDataIO.
+      security: 
+        - bearerToken: []
+        - openId:
+            - write
+        - oauth2User:
+            - write
+      operationId: deleteNarrativeWardrobeById
+      tags: 
+      -  NarrativeWardrobe Management
+      parameters:
+        - $ref: "#/components/parameters/omc-id"
+      responses:
+        204:
+          description: No Content 
+        400:
+          $ref: "#/components/responses/BadRequest"
+        401:
+          $ref: "#/components/responses/Unauthorized"  
+        403:
+          $ref: "#/components/responses/Forbidden"
+        404:
+          $ref: "#/components/responses/NotFound" 
+  "/narrativewardrobe/{omc-id}/related":
+    get:
+      summary: Returns the list of NarrativeWardrobes associated with this NarrativeWardrobe's unique ID 
+      security: 
+        - bearerToken: []
+        - openId:
+            - read
+        - oauth2User:
+            - read
+      operationId: getRelatedNarrativeWardrobesById
+      tags:
+        - NarrativeWardrobe Management
+      parameters: 
+        - $ref: '#/components/parameters/omc-id'
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items:
+                      $ref: "#/components/schemas/identifier"
+                    type: array
+                  meta:
+                    $ref: "#/components/schemas/Meta"
+                  pagination:
+                    $ref: "#/components/schemas/Pagination"
+          description: ""
+        400:
+          $ref: "#/components/responses/BadRequest"
+        401:
+          $ref: "#/components/responses/Unauthorized"    
+        403:
+          $ref: "#/components/responses/Forbidden"
+        404:
+          $ref: "#/components/responses/NotFound" 
+  
           
 components:
   examples:
