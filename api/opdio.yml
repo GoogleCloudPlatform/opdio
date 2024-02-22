@@ -25,6 +25,22 @@ tags:
   description: CRUDL operations for Characters, as defined by the OMC schema.
 - name: CreativeWork Management
   description: CRUDL operations for CreativeWorks, as defined by the OMC schema.
+- name: Depiction Management
+description: CRUDL operations for Depictions, as defined by the OMC schema.
+- name: Effect Management
+description: CRUDL operations for Effects, as defined by the OMC schema.
+- name: NarrativeAudio Management
+description: CRUDL operations for NarrativeAudio, as defined by the OMC schema.
+- name: NarrativeLocation Management
+description: CRUDL operations for NarrativeLocations, as defined by the OMC schema.
+- name: NarrativeObject Management
+description: CRUDL operations for NarrativeObjects, as defined by the OMC schema.
+- name: NarrativeScene Management
+description: CRUDL operations for NarrativeScene, as defined by the OMC schema.
+- name: NarrativeStyling Management
+description: CRUDL operations for NarrativeStylings, as defined by the OMC schema.
+- name: NarrativeWardrobe Management
+description: CRUDL operations for NarrativeWardrobes, as defined by the OMC schema.
 
 paths:
   /asset/create:
