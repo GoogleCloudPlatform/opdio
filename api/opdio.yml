@@ -592,7 +592,148 @@ paths:
           $ref: "#/components/responses/Forbidden"
         404:
           $ref: "#/components/responses/NotFound" 
-  
+
+  /depiction/create:
+    post:
+      summary: Create new Depictions in OPDIO and receive an OMC identifier.
+      security: 
+        - bearerToken: []
+        - openId:
+            - write
+        - oauth2User:
+            - write
+      operationId: createDepiction
+      tags:
+      - Depiction Management
+      requestBody: 
+        description: This action creates a new Depiction within OpenProductionDataIO, which can later be retrieved using its Identifier.
+        required: true
+        content:
+          application/json:
+              schema:
+                $ref: '#/components/schemas/Depiction'
+              example: 
+                $ref: '#/components/examples/createDepictionExample'
+      responses:
+        201:
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  created:
+                    type: boolean
+                  identifier:
+                    $ref: '#/components/schemas/identifier'
+              example:
+                $ref: '#/components/examples/depictionCreatedResponse'
+        400:
+          $ref: "#/components/responses/BadRequest"
+        401:
+          $ref: "#/components/responses/Unauthorized"
+        403:
+          $ref: "#/components/responses/Forbidden"
+        404:
+          $ref: "#/components/responses/NotFound" 
+  "/depiction/{omc-id}":
+    get:
+      summary: Returns an Depiction object, given that Depiction's unique ID 
+      security: 
+        - bearerToken: []
+        - openId:
+            - read
+        - oauth2User:
+            - read
+      operationId: getDepictionById
+      tags:
+        - Depiction Management
+      parameters: 
+        - $ref: '#/components/parameters/omc-id'
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    $ref: "#/components/schemas/Depiction"
+                  meta:
+                    $ref: "#/components/schemas/Meta"
+                type: object
+          description: ""
+        400:
+          $ref: "#/components/responses/BadRequest"
+        401:
+          $ref: "#/components/responses/Unauthorized"
+        403:
+          $ref: "#/components/responses/Forbidden"
+        404:
+          $ref: "#/components/responses/NotFound" 
+    parameters: 
+      - $ref: "#/components/parameters/fields"
+    delete:
+      summary: Deletes an Depiction reference from OpenProductionDataIO.
+      security: 
+        - bearerToken: []
+        - openId:
+            - write
+        - oauth2User:
+            - write
+      operationId: deleteDepictionById
+      tags: 
+      -  Depiction Management
+      parameters:
+        - $ref: "#/components/parameters/omc-id"
+      responses:
+        204:
+          description: No Content 
+        400:
+          $ref: "#/components/responses/BadRequest"
+        401:
+          $ref: "#/components/responses/Unauthorized"  
+        403:
+          $ref: "#/components/responses/Forbidden"
+        404:
+          $ref: "#/components/responses/NotFound" 
+  "/depiction/{omc-id}/related":
+    get:
+      summary: Returns the list of Depictions associated with this Depiction's unique ID 
+      security: 
+        - bearerToken: []
+        - openId:
+            - read
+        - oauth2User:
+            - read
+      operationId: getRelatedDepictionsById
+      tags:
+        - Depiction Management
+      parameters: 
+        - $ref: '#/components/parameters/omc-id'
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items:
+                      $ref: "#/components/schemas/identifier"
+                    type: array
+                  meta:
+                    $ref: "#/components/schemas/Meta"
+                  pagination:
+                    $ref: "#/components/schemas/Pagination"
+          description: ""
+        400:
+          $ref: "#/components/responses/BadRequest"
+        401:
+          $ref: "#/components/responses/Unauthorized"    
+        403:
+          $ref: "#/components/responses/Forbidden"
+        404:
+          $ref: "#/components/responses/NotFound" 
+                      
   /narrativeobject/create:
     post:
       summary: Create new NarrativeObjects in OPDIO and receive an OMC identifier.
