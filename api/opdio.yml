@@ -23,7 +23,7 @@ tags:
   description: CRUDL operations for Participants, as defined by the OMC schema.
 - name: Character Management
   description: CRUDL operations for Characters, as defined by the OMC schema.
-- name: CreativeWorks Management
+- name: CreativeWork Management
   description: CRUDL operations for CreativeWorks, as defined by the OMC schema.
 
 paths:
@@ -593,7 +593,149 @@ paths:
         404:
           $ref: "#/components/responses/NotFound" 
   
-            
+  /narrativeobject/create:
+    post:
+      summary: Create new NarrativeObjects in OPDIO and receive an OMC identifier.
+      security: 
+        - bearerToken: []
+        - openId:
+            - write
+        - oauth2User:
+            - write
+      operationId: createNarrativeObject
+      tags:
+      - NarrativeObject Management
+      requestBody: 
+        description: This action creates a new NarrativeObject within OpenProductionDataIO, which can later be retrieved using its Identifier.
+        required: true
+        content:
+          application/json:
+              schema:
+                $ref: '#/components/schemas/NarrativeObject'
+              example: 
+                $ref: '#/components/examples/createNarrativeObjectExample'
+      responses:
+        201:
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  created:
+                    type: boolean
+                  identifier:
+                    $ref: '#/components/schemas/identifier'
+              example:
+                $ref: '#/components/examples/narrativeobjectCreatedResponse'
+        400:
+          $ref: "#/components/responses/BadRequest"
+        401:
+          $ref: "#/components/responses/Unauthorized"
+        403:
+          $ref: "#/components/responses/Forbidden"
+        404:
+          $ref: "#/components/responses/NotFound" 
+  "/narrativeobject/{omc-id}":
+    get:
+      summary: Returns an NarrativeObject object, given that NarrativeObject's unique ID 
+      security: 
+        - bearerToken: []
+        - openId:
+            - read
+        - oauth2User:
+            - read
+      operationId: getNarrativeObjectById
+      tags:
+        - NarrativeObject Management
+      parameters: 
+        - $ref: '#/components/parameters/omc-id'
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    $ref: "#/components/schemas/NarrativeObject"
+                  meta:
+                    $ref: "#/components/schemas/Meta"
+                type: object
+          description: ""
+        400:
+          $ref: "#/components/responses/BadRequest"
+        401:
+          $ref: "#/components/responses/Unauthorized"
+        403:
+          $ref: "#/components/responses/Forbidden"
+        404:
+          $ref: "#/components/responses/NotFound" 
+    parameters: 
+      - $ref: "#/components/parameters/fields"
+    delete:
+      summary: Deletes an NarrativeObject reference from OpenProductionDataIO.
+      security: 
+        - bearerToken: []
+        - openId:
+            - write
+        - oauth2User:
+            - write
+      operationId: deleteNarrativeObjectById
+      tags: 
+      -  NarrativeObject Management
+      parameters:
+        - $ref: "#/components/parameters/omc-id"
+      responses:
+        204:
+          description: No Content 
+        400:
+          $ref: "#/components/responses/BadRequest"
+        401:
+          $ref: "#/components/responses/Unauthorized"  
+        403:
+          $ref: "#/components/responses/Forbidden"
+        404:
+          $ref: "#/components/responses/NotFound" 
+  "/narrativeobject/{omc-id}/related":
+    get:
+      summary: Returns the list of NarrativeObjects associated with this NarrativeObject's unique ID 
+      security: 
+        - bearerToken: []
+        - openId:
+            - read
+        - oauth2User:
+            - read
+      operationId: getRelatedNarrativeObjectsById
+      tags:
+        - NarrativeObject Management
+      parameters: 
+        - $ref: '#/components/parameters/omc-id'
+      responses:
+        200:
+          content:
+            application/json:
+              schema:
+                properties:
+                  data:
+                    items:
+                      $ref: "#/components/schemas/identifier"
+                    type: array
+                  meta:
+                    $ref: "#/components/schemas/Meta"
+                  pagination:
+                    $ref: "#/components/schemas/Pagination"
+          description: ""
+        400:
+          $ref: "#/components/responses/BadRequest"
+        401:
+          $ref: "#/components/responses/Unauthorized"    
+        403:
+          $ref: "#/components/responses/Forbidden"
+        404:
+          $ref: "#/components/responses/NotFound" 
+
+
+          
 components:
   examples:
     createAssetExample:
@@ -669,6 +811,30 @@ components:
       $ref: 'schemas/omc-context.json#/$defs/MediaCreationContext/properties/CreativeWork/properties'
     Depiction:
       $ref: 'schemas/omc-context.json#/$defs/MediaCreationContext/properties/Depiction/properties'
+    Effect:
+      $ref: 'schemas/omc-context.json#/$defs/MediaCreationContext/properties/Effect/properties'
+    NarrativeAudio:
+      $ref: 'schemas/omc-context.json#/$defs/MediaCreationContext/properties/NarrativeAudio/properties'
+    NarrativeLocation:
+      $ref: 'schemas/omc-context.json#/$defs/MediaCreationContext/properties/NarrativeLocation/properties'
+    NarrativeObject:
+      $ref: 'schemas/omc-context.json#/$defs/MediaCreationContext/properties/NarrativeObject/properties'
+    NarrativeScene:
+      $ref: 'schemas/omc-context.json#/$defs/MediaCreationContext/properties/NarrativeScene/properties'
+    NarrativeStyling:
+      $ref: 'schemas/omc-context.json#/$defs/MediaCreationContext/properties/NarrativeStyling/properties'
+    NarrativeWardrobe:
+      $ref: 'schemas/omc-context.json#/$defs/MediaCreationContext/properties/NarrativeWardrobe/properties'
+    ProductionLocation:  
+      $ref: 'schemas/omc-context.json#/$defs/MediaCreationContext/properties/ProductionLocation/properties'
+    ProductionScene:
+      $ref: 'schemas/omc-context.json#/$defs/MediaCreationContext/properties/ProductionScene/properties'
+    Sequence:
+      $ref: 'schemas/omc-context.json#/$defs/MediaCreationContext/properties/Sequence/properties'
+    Slate:
+      $ref: 'schemas/omc-context.json#/$defs/MediaCreationContext/properties/Slate/properties'
+    SpecialAction:
+      $ref: 'schemas/omc-context.json#/$defs/MediaCreationContext/properties/SpecialAction/properties'
     Participant:
       $ref: 'schemas/omc-participant.json#/$defs/Participant'
     identifier: 
