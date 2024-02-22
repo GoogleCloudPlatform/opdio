@@ -947,35 +947,35 @@ components:
     Asset:
       $ref: 'schemas/omc-asset.json#/$defs/Asset/properties/Asset'
     Character:
-      $ref: 'schemas/omc-context.json#/$defs/MediaCreationContext/properties/Character/properties'
+      $ref: 'schemas/omc-context.json#/$defs/MediaCreationContext/properties/Character'
     CreativeWork:
-      $ref: 'schemas/omc-context.json#/$defs/MediaCreationContext/properties/CreativeWork/properties'
+      $ref: 'schemas/omc-context.json#/$defs/MediaCreationContext/properties/CreativeWork'
     Depiction:
-      $ref: 'schemas/omc-context.json#/$defs/MediaCreationContext/properties/Depiction/properties'
+      $ref: 'schemas/omc-context.json#/$defs/MediaCreationContext/properties/Depiction'
     Effect:
-      $ref: 'schemas/omc-context.json#/$defs/MediaCreationContext/properties/Effect/properties'
+      $ref: 'schemas/omc-context.json#/$defs/MediaCreationContext/properties/Effect'
     NarrativeAudio:
-      $ref: 'schemas/omc-context.json#/$defs/MediaCreationContext/properties/NarrativeAudio/properties'
+      $ref: 'schemas/omc-context.json#/$defs/MediaCreationContext/properties/NarrativeAudio'
     NarrativeLocation:
-      $ref: 'schemas/omc-context.json#/$defs/MediaCreationContext/properties/NarrativeLocation/properties'
+      $ref: 'schemas/omc-context.json#/$defs/MediaCreationContext/properties/NarrativeLocation'
     NarrativeObject:
-      $ref: 'schemas/omc-context.json#/$defs/MediaCreationContext/properties/NarrativeObject/properties'
+      $ref: 'schemas/omc-context.json#/$defs/MediaCreationContext/properties/NarrativeObject'
     NarrativeScene:
-      $ref: 'schemas/omc-context.json#/$defs/MediaCreationContext/properties/NarrativeScene/properties'
+      $ref: 'schemas/omc-context.json#/$defs/MediaCreationContext/properties/NarrativeScene'
     NarrativeStyling:
-      $ref: 'schemas/omc-context.json#/$defs/MediaCreationContext/properties/NarrativeStyling/properties'
+      $ref: 'schemas/omc-context.json#/$defs/MediaCreationContext/properties/NarrativeStyling'
     NarrativeWardrobe:
-      $ref: 'schemas/omc-context.json#/$defs/MediaCreationContext/properties/NarrativeWardrobe/properties'
+      $ref: 'schemas/omc-context.json#/$defs/MediaCreationContext/properties/NarrativeWardrobe'
     ProductionLocation:  
-      $ref: 'schemas/omc-context.json#/$defs/MediaCreationContext/properties/ProductionLocation/properties'
+      $ref: 'schemas/omc-context.json#/$defs/MediaCreationContext/properties/ProductionLocation'
     ProductionScene:
-      $ref: 'schemas/omc-context.json#/$defs/MediaCreationContext/properties/ProductionScene/properties'
+      $ref: 'schemas/omc-context.json#/$defs/MediaCreationContext/properties/ProductionScene'
     Sequence:
-      $ref: 'schemas/omc-context.json#/$defs/MediaCreationContext/properties/Sequence/properties'
+      $ref: 'schemas/omc-context.json#/$defs/MediaCreationContext/properties/Sequence'
     Slate:
-      $ref: 'schemas/omc-context.json#/$defs/MediaCreationContext/properties/Slate/properties'
+      $ref: 'schemas/omc-context.json#/$defs/MediaCreationContext/properties/Slate'
     SpecialAction:
-      $ref: 'schemas/omc-context.json#/$defs/MediaCreationContext/properties/SpecialAction/properties'
+      $ref: 'schemas/omc-context.json#/$defs/MediaCreationContext/properties/SpecialAction'
     Participant:
       $ref: 'schemas/omc-participant.json#/$defs/Participant'
     identifier: 

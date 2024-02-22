@@ -206,12 +206,10 @@
                             "items": {
                                 "anyOf": [
                                     {"$ref": "#/$defs/core/properties/reference"},
-                                    {"$ref": "#/$defs/Asset/properties/Asset"},
                                     {"$ref": "#/$defs/MediaCreationContext/properties/Character"},
                                     {"$ref": "#/$defs/MediaCreationContext/properties/Context"},
                                     {"$ref": "#/$defs/MediaCreationContext/properties/CreativeWork"},
                                     {"$ref": "#/$defs/MediaCreationContext/properties/Depiction"},
-                                    {"$ref": "#/$defs/Participant/properties/Participant"},
                                     {"$ref": "#/$defs/MediaCreationContext/properties/SpecialAction"},
                                     {"$ref": "#/$defs/MediaCreationContext/properties/NarrativeAudio"},
                                     {"$ref": "#/$defs/MediaCreationContext/properties/Effect"},
@@ -250,10 +248,6 @@
                                     ],
                                     "items": {
                                         "anyOf": [
-                                            {
-                                                "type": "object",
-                                                "$ref": "#/$defs/Participant/properties/Participant"
-                                            },
                                             {"$ref": "#/$defs/core/properties/reference"}
                                         ]
                                     }
@@ -423,7 +417,7 @@
                                     ],
                                     "items": {
                                         "anyOf": [
-                                            {"$ref": "#/$defs/Asset/properties/Asset"},
+
                                             {"$ref": "#/$defs/core/properties/reference"}
                                         ]
                                     }
@@ -503,7 +497,6 @@
                                     ],
                                     "items": {
                                         "anyOf": [
-                                            {"$ref": "#/$defs/Asset/properties/Asset"},
                                             {"$ref": "#/$defs/core/properties/reference"}
                                         ]
                                     }
@@ -515,10 +508,7 @@
                                     ],
                                     "items": {
                                         "anyOf": [
-                                            {
-                                                "$ref": "#/$defs/Infrastructure/properties/Infrastructure",
-                                                "type": "object"
-                                            },
+                                       
                                             {"$ref": "#/$defs/core/properties/reference"}
                                         ]
                                     }
@@ -566,10 +556,7 @@
                                     ],
                                     "items": {
                                         "anyOf": [
-                                            {
-                                                "$ref": "#/$defs/Participant/properties/Participant",
-                                                "type": "object"
-                                            },
+                                            
                                             {"$ref": "#/$defs/core/properties/reference"}
                                         ]
                                     }
@@ -874,10 +861,6 @@
                                     ],
                                     "items": {
                                         "anyOf": [
-                                            {
-                                                "type": "object",
-                                                "$ref": "#/$defs/Asset/properties/Asset"
-                                            },
                                             {"$ref": "#/$defs/core/properties/reference"}
                                         ]
                                     }
@@ -904,10 +887,6 @@
                                     ],
                                     "items": {
                                         "anyOf": [
-                                            {
-                                                "type": "object",
-                                                "$ref": "#/$defs/Infrastructure/properties/Infrastructure"
-                                            },
                                             {"$ref": "#/$defs/core/properties/reference"}
                                         ]
                                     }
@@ -1099,9 +1078,7 @@
                         "Depictor": {
                             "type": "object",
                             "oneOf": [
-                                {"$ref": "#/$defs/core/properties/reference"},
-                                {"$ref": "#/$defs/Asset/properties/Asset"},
-                                {"$ref": "#/$defs/Participant/properties/Participant"}
+                                {"$ref": "#/$defs/core/properties/reference"}
                             ]
                         },
                         "Context": {
@@ -1892,10 +1869,6 @@
                             "description": "A brief description of the sequence",
                             "title": "Sequence description"
                         },
-                        "provenance": {
-                            "$ref": "#/$defs/Utility/properties/provenance",
-                            "title": "Provenance"
-                        },
                         "version": {
                             "type": "object",
                             "title": "Sequence Version Information",
@@ -1976,8 +1949,7 @@
                         "SCD": {
                             "title": "Sequence Chronology Descriptor",
                             "oneOf": [
-                                {"$ref": "#/$defs/core/properties/reference"},
-                                {"$ref": "#/$defs/Asset/properties/Asset"}
+                                {"$ref": "#/$defs/core/properties/reference"}
                             ]
                         },
                         "customData": {"$ref": "#/$defs/core/properties/customData"},
@@ -2109,8 +2081,7 @@
                             "title": "Director",
                             "items": {
                                 "anyOf": [
-                                    {"$ref": "#/$defs/core/properties/reference"},
-                                    {"$ref": "#/$defs/Participant/properties/Participant"}
+                                    {"$ref": "#/$defs/core/properties/reference"}
                                 ]
                             }
                         },
@@ -2987,38 +2958,6 @@
                     ],
                     "title": "Version Number",
                     "description": "A designation indicating a place in a sequence of versions"
-                },
-                "provenance": {
-                    "type": "object",
-                    "properties": {
-                        "CreatedBy": {
-                            "oneOf": [
-                                {"$ref": "#/$defs/core/properties/reference"},
-                                {"$ref": "#/$defs/Participant/properties/Participant"}
-                            ]
-                        },
-                        "Role": {
-                            "oneOf": [
-                                {"$ref": "#/$defs/core/properties/reference"},
-                                {"$ref": "#/$defs/Participant/properties/Role"}
-                            ]
-                        },
-                        "createdOn": {"$ref": "#/$defs/Utility/properties/time/properties/dateTime"},
-                        "Origin": {
-                            "oneOf": [
-                                {"$ref": "#/$defs/core/properties/reference"},
-                                {"$ref": "#/$defs/Asset/properties/Asset"}
-                            ]
-                        },
-                        "reason": {"type": "string"},
-                        "note": {
-                            "type": "array",
-                            "items": {"$ref": "#/$defs/Utility/properties/note"}
-                        }
-                    },
-                    "title": "Provenance",
-                    "description": "A record of when something was changed and by whom.",
-                    "additionalProperties": false
                 }
             },
             "additionalProperties": false,
